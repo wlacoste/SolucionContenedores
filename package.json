@@ -1,0 +1,93 @@
+{
+  "name": "visualizador",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@architecture-it/azure-b2c": "^1.6.2",
+    "@architecture-it/core": "^1.4.1",
+    "@architecture-it/cra-template": "1.7.1",
+    "@architecture-it/react-env": "^1.1.0",
+    "@architecture-it/stylesystem": "^2.12.0",
+    "@azure/msal-browser": "^2.36.0",
+    "@azure/msal-react": "^1.5.6",
+    "@elastic/apm-rum": "^5.12.0",
+    "@elastic/apm-rum-react": "^1.4.2",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fortawesome/pro-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.12.1",
+    "@react-three/drei": "^9.65.5",
+    "@react-three/fiber": "^8.12.2",
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^0.27.2",
+    "react": "^18.2.0",
+    "react-3d-cube": "^1.0.5",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.10.0",
+    "three": "^0.151.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "prestart": "react-env --",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "eslint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
+    "stylelint": "stylelint **/*.{css,scss}",
+    "stylelint:fix": "stylelint --fix **/*.{css,scss}",
+    "lint": "npm run eslint && npm run stylelint",
+    "lint:fix": "npm run eslint:fix && npm run stylelint:fix",
+    "docker:build": "docker build -t andreani-front .",
+    "docker:start": "docker run -p 9000:3000 --env-file ./.env andreani-front"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@architecture-it/andreani/react-ts"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@architecture-it/eslint-config-andreani": "^1.5.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^18.15.13",
+    "@types/react": "^18.0.38",
+    "@types/react-dom": "^18.0.11",
+    "@types/three": "^0.150.2",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "msw": "^1.2.1",
+    "prettier": "^2.8.7",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.62.0",
+    "stylelint": "^15.5.0",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-config-standard-scss": "^8.0.0",
+    "typescript": "^5.0.4"
+  }
+}
