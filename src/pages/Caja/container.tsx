@@ -3,6 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import { Vector3 } from "three";
 
 import styles from "./estilos.module.scss";
 import Cube from "./caja";
@@ -36,12 +37,33 @@ function GeometryContainer() {
     },
   ];
 
+  const container: IBox = {
+    position: [0, 0, 0],
+    dimension: [15, 15, 15],
+  };
   const getCajas = () => {
     return cajas.map((caja, i) => {
       return (
-        <Cube key={i} position={posicionCanonica(caja)} scale={caja.dimension} wireframe={true} />
+        <Cube
+          key={i}
+          esmaterial={true}
+          position={posicionCanonica(caja)}
+          scale={caja.dimension}
+          wireframe={false}
+        />
       );
     });
+  };
+
+  const getContainer = () => {
+    return (
+      <Cube
+        esmaterial={false}
+        position={posicionCanonica(container)}
+        scale={container.dimension}
+        wireframe={true}
+      />
+    );
   };
 
   const posicionCanonica = ({ position, dimension }: IBox) => {
@@ -56,10 +78,11 @@ function GeometryContainer() {
 
   return (
     <section className={styles.GeometryContainer}>
-      <Canvas>
+      <Canvas camera={{ position: [100, 100, 100], fov: 50 }}>
         <pointLight position={[10, 10, 10]} />
         <ambientLight />
         {getCajas()}
+        {getContainer()}
         {/* <Cube position={[2.5, 2, 1.5]} scale={[5, 4, 3]} wireframe={true} />
         <Cube position={[1.2, 2, 0]} wireframe={true} /> */}
         <OrbitControls />
