@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Cube from "pages/Caja";
-import Caja from "pages/Caja";
-import Container from "pages/Caja/container";
+import Cube from "pages/Visualizador";
+import Cajas from "pages/Cajas";
+import Container from "pages/Visualizador/container";
 
 import PrincipalSkeleton from "../skeletons/Principal";
 
@@ -22,7 +22,7 @@ export default function AppRoutes() {
             <Route element={<User />} path="user" />
             <Route element={<Person />} path="person" />
           </Route>
-          <Route element={<Container />} path="caja" />
+          <Route element={<Cajas />} path="caja" />
           <Route index element={<Home />} />
         </Route>
       </Routes>

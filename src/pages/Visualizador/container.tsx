@@ -8,47 +8,50 @@ import { Vector3 } from "three";
 import styles from "./estilos.module.scss";
 import Cube from "./caja";
 
-interface IBox {
-  position: [number, number, number];
-  dimension: [number, number, number];
+export interface IBox {
+  id: number;
+  isPacked: boolean;
+  dim1: number;
+  dim2: number;
+  dim3: number;
+  coordX: number;
+  coordY: number;
+  coordZ: number;
+  quantity: number;
+  packDimX: number;
+  packDimY: number;
+  packDimZ: number;
+  volume: number;
 }
 
-interface IListaBox {
+export interface IListaBox {
   cajas: IBox[];
 }
 
-function GeometryContainer() {
-  const cajas: IBox[] = [
-    {
-      position: [0, 0, 0],
-      dimension: [3, 3, 3],
-    },
-    {
-      position: [0, 0, 3],
-      dimension: [3, 3, 3],
-    },
-    {
-      position: [0, 0, 6],
-      dimension: [3, 3, 3],
-    },
-    {
-      position: [0, 0, 9],
-      dimension: [5, 5, 5],
-    },
-  ];
-
+function GeometryContainer(cajas: IListaBox) {
   const container: IBox = {
-    position: [0, 0, 0],
-    dimension: [15, 15, 15],
+    id: 1,
+    isPacked: true,
+    dim1: 90,
+    dim2: 90,
+    dim3: 90,
+    coordX: 0,
+    coordY: 0,
+    coordZ: 0,
+    quantity: 1,
+    packDimX: 90,
+    packDimY: 90,
+    packDimZ: 90,
+    volume: 27000,
   };
   const getCajas = () => {
-    return cajas.map((caja, i) => {
+    return cajas.cajas.map((caja, i) => {
       return (
         <Cube
           key={i}
           esmaterial={true}
           position={posicionCanonica(caja)}
-          scale={caja.dimension}
+          scale={[caja.dim1, caja.dim2, caja.dim3]}
           wireframe={false}
         />
       );
@@ -60,17 +63,17 @@ function GeometryContainer() {
       <Cube
         esmaterial={false}
         position={posicionCanonica(container)}
-        scale={container.dimension}
+        scale={[container.dim1, container.dim2, container.dim3]}
         wireframe={true}
       />
     );
   };
 
-  const posicionCanonica = ({ position, dimension }: IBox) => {
+  const posicionCanonica = (caja: IBox) => {
     const res = [
-      position[0] + dimension[0] / 2,
-      position[1] + dimension[1] / 2,
-      position[2] + dimension[2] / 2,
+      caja.coordX + caja.dim1 / 2,
+      caja.coordY + caja.dim2 / 2,
+      caja.coordZ + caja.dim3 / 2,
     ];
 
     return res;
