@@ -39,8 +39,8 @@ function Cube(props) {
       onPointerOver={(event) => hover(true)}
     >
       {/* <cylinderGeometry args={[1, 1, 1]} /> */}
-      {/* <boxGeometry args={props.scale} /> */}
-      <bufferGeometry attach="geometry" {...geometry} />
+      <boxGeometry args={props.scale} />
+      {/* <bufferGeometry attach="geometry" {...geometry} /> */}
       {/* <meshStandardMaterial color={hovered ? "hotpink" : "orange"} wireframe={props.wireframe} /> */}
       {/* <meshPhongMaterial transparent color="#ff0000" opacity={0.3} /> */}
       {/* <meshPhongMaterial material={materials} /> */}

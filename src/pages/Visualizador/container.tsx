@@ -6,22 +6,22 @@ import * as THREE from "three";
 import { Vector3 } from "three";
 
 import styles from "./estilos.module.scss";
-import Cube from "./caja";
+import Cube from "./cuboGeometry";
 
 export interface IBox {
-  id: number;
-  isPacked: boolean;
-  dim1: number;
-  dim2: number;
-  dim3: number;
-  coordX: number;
-  coordY: number;
-  coordZ: number;
-  quantity: number;
-  packDimX: number;
-  packDimY: number;
-  packDimZ: number;
-  volume: number;
+  ID: number;
+  IsPacked: boolean;
+  Dim1: number;
+  Dim2: number;
+  Dim3: number;
+  CoordX: number;
+  CoordY: number;
+  CoordZ: number;
+  Quantity: number;
+  PackDimX: number;
+  PackDimY: number;
+  PackDimZ: number;
+  Volume: number;
 }
 
 export interface IListaBox {
@@ -30,19 +30,19 @@ export interface IListaBox {
 
 function GeometryContainer(cajas: IListaBox) {
   const container: IBox = {
-    id: 1,
-    isPacked: true,
-    dim1: 90,
-    dim2: 90,
-    dim3: 90,
-    coordX: 0,
-    coordY: 0,
-    coordZ: 0,
-    quantity: 1,
-    packDimX: 90,
-    packDimY: 90,
-    packDimZ: 90,
-    volume: 27000,
+    ID: 1,
+    IsPacked: true,
+    Dim1: 40,
+    Dim2: 20,
+    Dim3: 50,
+    CoordX: 0,
+    CoordY: 0,
+    CoordZ: 0,
+    Quantity: 1,
+    PackDimX: 90,
+    PackDimY: 90,
+    PackDimZ: 90,
+    Volume: 27000,
   };
   const getCajas = () => {
     return cajas.cajas.map((caja, i) => {
@@ -51,7 +51,7 @@ function GeometryContainer(cajas: IListaBox) {
           key={i}
           esmaterial={true}
           position={posicionCanonica(caja)}
-          scale={[caja.dim1, caja.dim2, caja.dim3]}
+          scale={[caja.Dim1, caja.Dim3, caja.Dim2]}
           wireframe={false}
         />
       );
@@ -63,7 +63,7 @@ function GeometryContainer(cajas: IListaBox) {
       <Cube
         esmaterial={false}
         position={posicionCanonica(container)}
-        scale={[container.dim1, container.dim2, container.dim3]}
+        scale={[container.Dim1, container.Dim3, container.Dim2]}
         wireframe={true}
       />
     );
@@ -71,9 +71,9 @@ function GeometryContainer(cajas: IListaBox) {
 
   const posicionCanonica = (caja: IBox) => {
     const res = [
-      caja.coordX + caja.dim1 / 2,
-      caja.coordY + caja.dim2 / 2,
-      caja.coordZ + caja.dim3 / 2,
+      caja.CoordX + caja.Dim1 / 2,
+      caja.CoordY + caja.Dim3 / 2,
+      caja.CoordZ + caja.Dim2 / 2,
     ];
 
     return res;
@@ -86,10 +86,11 @@ function GeometryContainer(cajas: IListaBox) {
         <ambientLight />
         {getCajas()}
         {getContainer()}
-        {/* <Cube position={[2.5, 2, 1.5]} scale={[5, 4, 3]} wireframe={true} />
-        <Cube position={[1.2, 2, 0]} wireframe={true} /> */}
+        {/* <Cube position={[2.5, 2, 1.5]} scale={[5, 4, 3]} wireframe={true} /> */}
+        <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
+        <axesHelper args={[5]} />
         <OrbitControls />
-        <primitive object={new THREE.AxesHelper(100)} />
+        <primitive object={new THREE.AxesHelper(500)} />
       </Canvas>
     </section>
   );
