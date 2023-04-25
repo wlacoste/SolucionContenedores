@@ -1,4 +1,4 @@
-import Container, { IBox, IListaBox } from "pages/Visualizador/container";
+import GeometryContainer, { IBox, IListaBox } from "pages/Visualizador/Container/container";
 
 import { resultadoAlgo2 as resultadoAlgo } from "./result";
 
@@ -15,10 +15,10 @@ export interface PackingResults {
   AlgorithmName: string;
   IsCompletePack: boolean;
   PackedItems: IBox[];
-  // PackTimeInMilliseconds: number;
-  // PercentContainerVolumePacked: number;
+  // PackTimeInMilliseconds: number ;
+  // PercentContainerVolumePacked: number ;
   // PercentItemVolumePacked: number;
-  // UnpackedItems: IBox[];
+  // UnpackedItems: IBox[] ;
 }
 
 export default function Cajas() {
@@ -37,7 +37,7 @@ export default function Cajas() {
 
     console.log(cajas);
     const packings = cajas.map((caja, j) => {
-      return <Container key={i + j} cajas={getPackingResult(caja)} />;
+      return <GeometryContainer key={i + j} cajas={getPackingResult(caja)} />;
     });
 
     return packings;

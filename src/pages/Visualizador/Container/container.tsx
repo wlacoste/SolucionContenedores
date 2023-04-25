@@ -80,19 +80,20 @@ function GeometryContainer(cajas: IListaBox) {
   };
 
   return (
-    <section className={styles.GeometryContainer}>
-      <Canvas camera={{ position: [100, 100, 100], fov: 50 }}>
-        <pointLight position={[10, 10, 10]} />
-        <ambientLight />
-        {getCajas()}
-        {getContainer()}
-        {/* <Cube position={[2.5, 2, 1.5]} scale={[5, 4, 3]} wireframe={true} /> */}
-        <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
-        <axesHelper args={[5]} />
-        <OrbitControls />
-        <primitive object={new THREE.AxesHelper(500)} />
-      </Canvas>
-    </section>
+    <div className={styles.divContainer}>
+      <section className={styles.GeometryContainer}>
+        <Canvas camera={{ position: [100, 100, 100], fov: 50 }}>
+          <pointLight position={[10, 10, 10]} />
+          <ambientLight />
+          {getCajas()}
+          {getContainer()}
+          <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
+          <axesHelper args={[5]} />
+          <OrbitControls />
+          <primitive object={new THREE.AxesHelper(500)} />
+        </Canvas>
+      </section>
+    </div>
   );
 }
 
