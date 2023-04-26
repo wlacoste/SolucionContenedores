@@ -19,9 +19,9 @@ export const resultadoAlgo2: resultado[] = [
 
             Dim1: 30.0,
 
-            Dim2: 15.0,
+            Dim2: 25.0,
 
-            Dim3: 30.0,
+            Dim3: 35.0,
 
             CoordX: 0.0,
 
