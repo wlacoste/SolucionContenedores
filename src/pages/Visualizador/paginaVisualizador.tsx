@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 export default function paginaVisualizador() {
   return (
     <div className={styles.root}>
-      <InputContenedor />
+      {/* <InputContenedor /> */}
       <InputSegundo />
       <Cajas />
     </div>
