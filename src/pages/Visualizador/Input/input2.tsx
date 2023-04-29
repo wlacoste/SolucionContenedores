@@ -4,6 +4,7 @@ import { object, array, string, number } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { faPlus, faTrash } from "@fortawesome/pro-solid-svg-icons";
+import axios from "axios";
 
 import styles from "./Input.module.scss";
 
@@ -22,9 +23,7 @@ const validationSchema = object().shape({
       dimx: number().required("Campo requerido").min(0.001),
       dimy: number().required("Campo requerido").min(0.001),
       dimz: number().required("Campo requerido").min(0.001),
-      cantidad: string()
-        .matches(/^\d{1,}(\.\d{0,0})?$/, "Is not in correct format")
-        .required("Campo requerido"),
+      cantidad: number().integer().positive().min(1).required("Campo requerido"),
     })
   ),
 });
@@ -46,11 +45,19 @@ export function InputSegundo() {
     name: "paquete",
   });
 
+  const submitForm = async (formulario: any) => {
+    let x: FormValues = formulario as FormValues;
+    let { data } = await axios.post("http://localhost:5000/api/v1/Empaquetado", x.paquete);
+    // let response = await axios.post("http://localhost:5000/api/v1/Empaquetado");
+
+    console.log(data);
+  };
+
   return (
     <div className={styles.formRoot}>
       <form
         onSubmit={handleSubmit((data) => {
-          console.log("submited data", data);
+          submitForm(data);
         })}
       >
         <div className={styles.bottonForm}>
@@ -120,7 +127,7 @@ export function InputSegundo() {
                   placeholder="cantidad"
                   type="number"
                   {...register(`paquete.${index}.cantidad`, { required: true })}
-                  error={Boolean(errors.paquete && errors.paquete[index]?.dimz)}
+                  error={Boolean(errors.paquete && errors.paquete[index]?.cantidad)}
                   inputProps={{ min: 1 }}
                 />
               </div>
