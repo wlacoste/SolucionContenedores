@@ -1,4 +1,4 @@
-import { resultado } from "./cajas";
+import { resultado } from "domain/IResultado";
 
 export const resultadoAlgo2: resultado[] = [
   {

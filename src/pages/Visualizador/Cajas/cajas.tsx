@@ -1,25 +1,9 @@
-import GeometryContainer, { IBox, IListaBox } from "pages/Visualizador/Container/container";
+import { resultado } from "domain/IResultado";
+import { PackingResults } from "domain/IPackingResult";
+
+import GeometryContainer, { IListaBox } from "pages/Visualizador/Container/container";
 
 import { resultadoAlgo2 as resultadoAlgo } from "./result";
-
-interface resultadoQuery {
-  resultados: resultado[];
-}
-
-export interface resultado {
-  ContainerID: number;
-  AlgorithmPackingResults: PackingResults[];
-}
-export interface PackingResults {
-  AlgorithmID: number;
-  AlgorithmName: string;
-  IsCompletePack: boolean;
-  PackedItems: IBox[];
-  // PackTimeInMilliseconds: number ;
-  // PercentContainerVolumePacked: number ;
-  // PercentItemVolumePacked: number;
-  // UnpackedItems: IBox[] ;
-}
 
 export default function Cajas() {
   const resultadoAlgoritmo: resultado[] = resultadoAlgo;

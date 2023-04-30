@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/no-unknown-property */
+import { IBox } from "domain/IBox";
+
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -7,22 +9,6 @@ import { Vector3 } from "three";
 
 import styles from "./estilos.module.scss";
 import Cube from "./cuboGeometry";
-
-export interface IBox {
-  ID: number;
-  IsPacked: boolean;
-  Dim1: number;
-  Dim2: number;
-  Dim3: number;
-  CoordX: number;
-  CoordY: number;
-  CoordZ: number;
-  Quantity: number;
-  PackDimX: number;
-  PackDimY: number;
-  PackDimZ: number;
-  Volume: number;
-}
 
 export interface IListaBox {
   cajas: IBox[];

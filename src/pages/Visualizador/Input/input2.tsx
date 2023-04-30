@@ -1,3 +1,6 @@
+import { resultado } from "domain/IResultado";
+import { FormValues } from "domain/FormValues";
+
 import { Button, IconButton, Input } from "@architecture-it/stylesystem";
 import { useFieldArray, useForm } from "react-hook-form";
 import { object, array, string, number } from "yup";
@@ -7,15 +10,6 @@ import { faPlus, faTrash } from "@fortawesome/pro-solid-svg-icons";
 import axios from "axios";
 
 import styles from "./Input.module.scss";
-
-type FormValues = {
-  paquete: {
-    dimx: number;
-    dimy: number;
-    dimz: number;
-    cantidad: number;
-  }[];
-};
 
 const validationSchema = object().shape({
   paquete: array().of(
@@ -47,10 +41,15 @@ export function InputSegundo() {
 
   const submitForm = async (formulario: any) => {
     let x: FormValues = formulario as FormValues;
+
+    x.paquete.forEach((element, index) => {
+      element.id = index + 1;
+    });
     let { data } = await axios.post("http://localhost:5000/api/v1/Empaquetado", x.paquete);
     // let response = await axios.post("http://localhost:5000/api/v1/Empaquetado");
+    let res = data as resultado[];
 
-    console.log(data);
+    console.log(res);
   };
 
   return (
