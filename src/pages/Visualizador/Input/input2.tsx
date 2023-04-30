@@ -8,6 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { faPlus, faTrash } from "@fortawesome/pro-solid-svg-icons";
 import axios from "axios";
+import useEmpaquetado from "app/empaquetado/useEmpaquetado";
+import { getEmpaquetado } from "store/features/empaquetado/asyncActions";
+import { useAppDispatch, useAppSelector } from "store/hooks";
+import { selectEmpaquetado } from "store/features/empaquetado";
 
 import styles from "./Input.module.scss";
 
@@ -23,6 +27,8 @@ const validationSchema = object().shape({
 });
 
 export function InputSegundo() {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -45,11 +51,12 @@ export function InputSegundo() {
     x.paquete.forEach((element, index) => {
       element.id = index + 1;
     });
-    let { data } = await axios.post("http://localhost:5000/api/v1/Empaquetado", x.paquete);
+    // let { data } = await axios.post("http://localhost:5000/api/v1/Empaquetado", x.paquete);
     // let response = await axios.post("http://localhost:5000/api/v1/Empaquetado");
-    let res = data as resultado[];
+    // let res = data as resultado[];
+    let result = dispatch(getEmpaquetado(x));
 
-    console.log(res);
+    // console.log(result);
   };
 
   return (

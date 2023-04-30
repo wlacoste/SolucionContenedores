@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { selectEmpaquetado } from "store/features/empaquetado";
+import { useAppSelector } from "store/hooks";
 
 interface FormValues {
   dimx: string;
@@ -10,6 +12,7 @@ interface dims {
   [key: number]: FormValues;
 }
 export default function Sandbox() {
+  const empaquetado = useAppSelector(selectEmpaquetado);
   const [inputFields, setInputFields] = useState<FormValues[]>([{ dimx: "", dimy: "", dimz: "" }]);
 
   const handleFormChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +29,8 @@ export default function Sandbox() {
 
     setInputFields([...inputFields, newfield]);
   };
+
+  console.log(empaquetado);
 
   return (
     <div className="App">
@@ -56,6 +61,7 @@ export default function Sandbox() {
         })}
         <button onClick={addFields}>Add More..</button>
       </form>
+      <p>{JSON.stringify(empaquetado)}</p>
     </div>
   );
 }
