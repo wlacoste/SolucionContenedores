@@ -20,6 +20,12 @@ class _EmpaquetadoService extends ServiceBase {
 
     return promise;
   }
+
+  getContainerData(id: number) {
+    const promise = axios.get("http://localhost:5000/api/v1/Container/" + id);
+
+    return promise;
+  }
 }
 const EmpaquetadoService = new _EmpaquetadoService();
 

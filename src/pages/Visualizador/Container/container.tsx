@@ -1,21 +1,27 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/no-unknown-property */
 import { IBox } from "domain/IBox";
+import { container } from "domain/IResultado";
 
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Vector3 } from "three";
+import { getContenedorData } from "app/empaquetado";
+import React from "react";
 
 import styles from "./estilos.module.scss";
 import Cube from "./cuboGeometry";
+import getContenedor from "./contenedor";
+
+const ContenedorComponente = React.lazy(() => import("./contenedor"));
 
 export interface IListaBox {
   cajas: IBox[];
 }
 
-const getCajas = (cajas: IListaBox) => {
-  return cajas.cajas.map((caja, i) => {
+const getCajas = (cajas: IBox[]) => {
+  return cajas.map((caja, i) => {
     return (
       <Cube
         key={i}
@@ -28,7 +34,7 @@ const getCajas = (cajas: IListaBox) => {
   });
 };
 
-const posicionCanonica = (caja: IBox) => {
+export const posicionCanonica = (caja: IBox) => {
   const res = [
     caja.coordX + caja.dim1 / 2,
     caja.coordY + caja.dim3 / 2,
@@ -48,6 +54,7 @@ const getContainer = (container: IBox) => {
     />
   );
 };
+
 const containerEjemplo = () => {
   const container: IBox = {
     id: 1,
@@ -68,7 +75,12 @@ const containerEjemplo = () => {
   return container;
 };
 
-function GeometryContainer(cajas: IListaBox) {
+interface IGeometryContainer {
+  cajas: IBox[];
+  containerId: number;
+}
+
+function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
   return (
     <div className={styles.divContainer}>
       <section className={styles.GeometryContainer}>
@@ -76,7 +88,8 @@ function GeometryContainer(cajas: IListaBox) {
           <pointLight position={[10, 10, 10]} />
           <ambientLight />
           {getCajas(cajas)}
-          {getContainer(containerEjemplo())}
+          {/* {getContenedor(containerId)} */}
+          <ContenedorComponente id={containerId} />
           <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
           <axesHelper args={[5]} />
           <OrbitControls />

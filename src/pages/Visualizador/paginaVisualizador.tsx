@@ -9,7 +9,7 @@ export default function paginaVisualizador() {
       {/* <InputContenedor /> */}
       <InputSegundo />
       <Cajas />
-      <Sandbox />
+      {/* <Sandbox /> */}
     </div>
   );
 }

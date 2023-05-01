@@ -12,14 +12,21 @@ export default function Cajas() {
   if (estado == undefined || estado.data.length == 0) {
     return (
       <div>
-        <GeometryContainer cajas={[]} />
+        <GeometryContainer cajas={[]} containerId={0} />
       </div>
     );
   } else {
     const visualizacion = estadoData.map((soluciones, i) => {
       const solucion = soluciones.map((solucion, j) => {
         return solucion.algorithmPackingResults.map((packingResult, k) => {
-          return <GeometryContainer key={i + j + k} cajas={packingResult.packedItems} />;
+          return (
+            <div key={i + j + k}>
+              <GeometryContainer
+                cajas={packingResult.packedItems}
+                containerId={solucion.containerID}
+              />
+            </div>
+          );
         });
       });
 

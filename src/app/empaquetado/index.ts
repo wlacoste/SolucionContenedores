@@ -7,3 +7,8 @@ export async function calcularEmpaquetado(paquetes: FormValues) {
 
   return data;
 }
+export async function getContenedorData(id: number) {
+  const { data } = await EmpaquetadoService.getContainerData(id);
+
+  return data;
+}
