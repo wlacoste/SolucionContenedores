@@ -1,15 +1,15 @@
 export interface IBox {
-  ID: number;
-  IsPacked: boolean;
-  Dim1: number;
-  Dim2: number;
-  Dim3: number;
-  CoordX: number;
-  CoordY: number;
-  CoordZ: number;
-  Quantity: number;
-  PackDimX: number;
-  PackDimY: number;
-  PackDimZ: number;
-  Volume: number;
+  id: number;
+  isPacked: boolean;
+  dim1: number;
+  dim2: number;
+  dim3: number;
+  coordX: number;
+  coordY: number;
+  coordZ: number;
+  quantity: number;
+  packDimX: number;
+  packDimY: number;
+  packDimZ: number;
+  volume: number;
 }

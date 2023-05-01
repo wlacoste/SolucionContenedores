@@ -1,12 +1,12 @@
 import { IBox } from "./IBox";
 
 export interface PackingResults {
-  AlgorithmID: number;
-  AlgorithmName: string;
-  IsCompletePack: boolean;
-  PackedItems: IBox[];
-  // PackTimeInMilliseconds: number ;
-  // PercentContainerVolumePacked: number ;
-  // PercentItemVolumePacked: number;
-  // UnpackedItems: IBox[] ;
+  algorithmID: number;
+  algorithmName: string;
+  isCompletePack: boolean;
+  packedItems: IBox[];
+  packTimeInMilliseconds?: number;
+  percentContainerVolumePacked?: number;
+  percentItemVolumePacked?: number;
+  unpackedItems?: IBox[];
 }

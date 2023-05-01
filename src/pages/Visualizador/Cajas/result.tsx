@@ -1,6 +1,6 @@
 import { resultado } from "domain/IResultado";
 
-export const resultadoAlgo2: resultado[] = [
+export const resultadoAlgo2 = [
   {
     ContainerID: 1,
     AlgorithmPackingResults: [

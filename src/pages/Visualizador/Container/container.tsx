@@ -14,65 +14,69 @@ export interface IListaBox {
   cajas: IBox[];
 }
 
-function GeometryContainer(cajas: IListaBox) {
-  const container: IBox = {
-    ID: 1,
-    IsPacked: true,
-    Dim1: 40,
-    Dim2: 20,
-    Dim3: 50,
-    CoordX: 0,
-    CoordY: 0,
-    CoordZ: 0,
-    Quantity: 1,
-    PackDimX: 90,
-    PackDimY: 90,
-    PackDimZ: 90,
-    Volume: 27000,
-  };
-  const getCajas = () => {
-    return cajas.cajas.map((caja, i) => {
-      return (
-        <Cube
-          key={i}
-          esmaterial={true}
-          position={posicionCanonica(caja)}
-          scale={[caja.Dim1, caja.Dim3, caja.Dim2]}
-          wireframe={false}
-        />
-      );
-    });
-  };
-
-  const getContainer = () => {
+const getCajas = (cajas: IListaBox) => {
+  return cajas.cajas.map((caja, i) => {
     return (
       <Cube
-        esmaterial={false}
-        position={posicionCanonica(container)}
-        scale={[container.Dim1, container.Dim3, container.Dim2]}
-        wireframe={true}
+        key={i}
+        esmaterial={true}
+        position={posicionCanonica(caja)}
+        scale={[caja.dim1, caja.dim3, caja.dim2]}
+        wireframe={false}
       />
     );
+  });
+};
+
+const posicionCanonica = (caja: IBox) => {
+  const res = [
+    caja.coordX + caja.dim1 / 2,
+    caja.coordY + caja.dim3 / 2,
+    caja.coordZ + caja.dim2 / 2,
+  ];
+
+  return res;
+};
+
+const getContainer = (container: IBox) => {
+  return (
+    <Cube
+      esmaterial={false}
+      position={posicionCanonica(container)}
+      scale={[container.dim1, container.dim3, container.dim2]}
+      wireframe={true}
+    />
+  );
+};
+const containerEjemplo = () => {
+  const container: IBox = {
+    id: 1,
+    isPacked: true,
+    dim1: 40,
+    dim2: 20,
+    dim3: 50,
+    coordX: 0,
+    coordY: 0,
+    coordZ: 0,
+    quantity: 1,
+    packDimX: 90,
+    packDimY: 90,
+    packDimZ: 90,
+    volume: 27000,
   };
 
-  const posicionCanonica = (caja: IBox) => {
-    const res = [
-      caja.CoordX + caja.Dim1 / 2,
-      caja.CoordY + caja.Dim3 / 2,
-      caja.CoordZ + caja.Dim2 / 2,
-    ];
+  return container;
+};
 
-    return res;
-  };
-
+function GeometryContainer(cajas: IListaBox) {
   return (
     <div className={styles.divContainer}>
       <section className={styles.GeometryContainer}>
         <Canvas camera={{ position: [100, 100, 100], fov: 50 }}>
           <pointLight position={[10, 10, 10]} />
           <ambientLight />
-          {getCajas()}
-          {getContainer()}
+          {getCajas(cajas)}
+          {getContainer(containerEjemplo())}
           <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
           <axesHelper args={[5]} />
           <OrbitControls />

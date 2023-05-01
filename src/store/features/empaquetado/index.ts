@@ -6,7 +6,7 @@ import { resultado } from "../../../domain/IResultado";
 
 import { getEmpaquetado } from "./asyncActions";
 
-interface IEmpaquetadoState extends IState<resultado[]> {}
+export interface IEmpaquetadoState extends IState<resultado[][]> {}
 
 const initialState: IEmpaquetadoState = {
   data: [],
