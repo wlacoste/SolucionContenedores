@@ -19,6 +19,9 @@ export default function getContenedor({ id }: IContenedor) {
     coordX: 0,
     coordY: 0,
     coordZ: 0,
+    packDimX: 0,
+    packDimY: 0,
+    packDimZ: 0,
   });
 
   useEffect(() => {
@@ -32,6 +35,9 @@ export default function getContenedor({ id }: IContenedor) {
         coordX: 0,
         coordY: 0,
         coordZ: 0,
+        packDimX: response.length,
+        packDimY: response.width,
+        packDimZ: response.height,
       };
 
       setContenedor(cajaContenedor);

@@ -52,7 +52,7 @@ const texto = (items: IBox[] | undefined) => {
             if (item.id.toString() === i && item.isPacked) {
               return (
                 <li key={j}>
-                  {` ${item.coordX},${item.coordY},${item.coordZ} ${fueRotado(item)}`}
+                  {` ${item.coordX},${item.coordZ},${item.coordY} ${fueRotado(item)}`}
                 </li>
               );
             }
@@ -74,6 +74,9 @@ export default function ResultadoLog({ packingResult, containerId }: IResultadoL
     coordX: 0,
     coordY: 0,
     coordZ: 0,
+    packDimX: 0,
+    packDimY: 0,
+    packDimZ: 0,
   });
 
   useEffect(() => {
@@ -87,6 +90,9 @@ export default function ResultadoLog({ packingResult, containerId }: IResultadoL
         coordX: 0,
         coordY: 0,
         coordZ: 0,
+        packDimX: 0,
+        packDimY: 0,
+        packDimZ: 0,
       };
 
       setContenedor(cajaContenedor);

@@ -23,6 +23,8 @@ export default function Cajas() {
     const visualizacion = estadoData.map((soluciones, i) => {
       const solucion = soluciones.map((solucion, j) => {
         return solucion.algorithmPackingResults.map((packingResult, k) => {
+          console.log(packingResult.packedItems);
+
           return (
             <div key={i + j + k} className={styles.solucionContenedor}>
               <GeometryContainer

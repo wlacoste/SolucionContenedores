@@ -6,13 +6,11 @@ import { container } from "domain/IResultado";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { Vector3 } from "three";
-import { getContenedorData } from "app/empaquetado";
 import React from "react";
+import { useControls } from "leva";
 
 import styles from "./estilos.module.scss";
 import Cube from "./cuboGeometry";
-import getContenedor from "./contenedor";
 
 const ContenedorComponente = React.lazy(() => import("./contenedor"));
 
@@ -22,12 +20,14 @@ export interface IListaBox {
 
 const getCajas = (cajas: IBox[]) => {
   return cajas.map((caja, i) => {
+    console.log(caja);
+
     return (
       <Cube
         key={i}
         esmaterial={true}
         position={posicionCanonica(caja)}
-        scale={[caja.dim1, caja.dim3, caja.dim2]}
+        scale={[caja.packDimX, caja.packDimZ, caja.packDimY]}
         wireframe={false}
       />
     );
@@ -36,43 +36,12 @@ const getCajas = (cajas: IBox[]) => {
 
 export const posicionCanonica = (caja: IBox) => {
   const res = [
-    caja.coordX + caja.dim1 / 2,
-    caja.coordY + caja.dim3 / 2,
-    caja.coordZ + caja.dim2 / 2,
+    caja.coordX + caja.packDimX / 2,
+    caja.coordZ + caja.packDimZ / 2,
+    caja.coordY + caja.packDimY / 2,
   ];
 
   return res;
-};
-
-const getContainer = (container: IBox) => {
-  return (
-    <Cube
-      esmaterial={false}
-      position={posicionCanonica(container)}
-      scale={[container.dim1, container.dim3, container.dim2]}
-      wireframe={true}
-    />
-  );
-};
-
-const containerEjemplo = () => {
-  const container: IBox = {
-    id: 1,
-    isPacked: true,
-    dim1: 40,
-    dim2: 20,
-    dim3: 50,
-    coordX: 0,
-    coordY: 0,
-    coordZ: 0,
-    quantity: 1,
-    packDimX: 90,
-    packDimY: 90,
-    packDimZ: 90,
-    volume: 27000,
-  };
-
-  return container;
 };
 
 interface IGeometryContainer {
@@ -81,6 +50,10 @@ interface IGeometryContainer {
 }
 
 function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
+  const color = useControls({
+    value: "white",
+  });
+
   return (
     <div className={styles.divContainer}>
       <section className={styles.GeometryContainer}>
@@ -94,6 +67,7 @@ function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
           <axesHelper args={[5]} />
           <OrbitControls />
           <primitive object={new THREE.AxesHelper(500)} />
+          <color args={[color.value]} attach="background" />
         </Canvas>
       </section>
     </div>

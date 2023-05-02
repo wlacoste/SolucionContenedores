@@ -8,8 +8,8 @@ export interface IBox {
   coordY: number;
   coordZ: number;
   quantity?: number;
-  packDimX?: number;
-  packDimY?: number;
-  packDimZ?: number;
+  packDimX: number;
+  packDimY: number;
+  packDimZ: number;
   volume?: number;
 }
