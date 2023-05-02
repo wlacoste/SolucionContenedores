@@ -50,9 +50,9 @@ interface IGeometryContainer {
 }
 
 function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
-  const color = useControls({
-    value: "white",
-  });
+  // const color = useControls({
+  //   value: "white",
+  // });
 
   return (
     <div className={styles.divContainer}>
@@ -67,7 +67,7 @@ function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
           <axesHelper args={[5]} />
           <OrbitControls />
           <primitive object={new THREE.AxesHelper(500)} />
-          <color args={[color.value]} attach="background" />
+          {/* <color args={[color.value]} attach="background" /> */}
         </Canvas>
       </section>
     </div>

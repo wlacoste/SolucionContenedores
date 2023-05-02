@@ -11,11 +11,11 @@ interface IResultadoLog {
   containerId: number;
 }
 
-const estaGirado = (item: IBox) => {
-  return item.dim1 != item.packDimX && item.dim2 != item.packDimY && item.dim3 != item.packDimZ;
+const noestaGirado = (item: IBox) => {
+  return item.dim1 === item.packDimX && item.dim2 === item.packDimY && item.dim3 === item.packDimZ;
 };
 const fueRotado = (item: IBox) => {
-  if (estaGirado(item)) {
+  if (!noestaGirado(item)) {
     return "rotado";
   } else return "";
 };
