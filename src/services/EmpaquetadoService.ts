@@ -16,13 +16,13 @@ class _EmpaquetadoService extends ServiceBase {
   }
 
   postEmpaquetado(paquetes: FormValues) {
-    const promise = axios.post("http://localhost:5000/api/v1/Empaquetado", paquetes.paquete);
+    const promise = axios.post(process.env.REACT_APP_API_PACKING!, paquetes.paquete);
 
     return promise;
   }
 
   getContainerData(id: number) {
-    const promise = axios.get("http://localhost:5000/api/v1/Container/" + id);
+    const promise = axios.get(process.env.REACT_APP_API_CONTAINER! + id);
 
     return promise;
   }

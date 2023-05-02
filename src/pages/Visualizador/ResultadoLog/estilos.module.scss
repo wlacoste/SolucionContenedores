@@ -1,0 +1,42 @@
+.root{
+    margin: 0 15px;
+}
+
+.items>h4{
+    margin:0 10px;
+}
+
+.root>h4, .root>div>h4{
+    margin: 0 5px;
+}
+
+.root>span, p{
+    margin: 0 10px;
+}
+
+
+
+.items>ul{
+    columns: 2;
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+.items>ul::before{
+    content:attr(aria-label);
+    font-weight:bold;
+    margin-top: 0;
+}
+
+
+
+.items>li{
+    line-height: 1.5em;
+    margin: 0 35px;
+}
+
+.titulo{
+    display: block;
+    background-color: red;
+    columns: 1;
+}
