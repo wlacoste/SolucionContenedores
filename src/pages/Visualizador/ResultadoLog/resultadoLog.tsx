@@ -52,7 +52,7 @@ const texto = (items: IBox[] | undefined) => {
             if (item.id.toString() === i && item.isPacked) {
               return (
                 <li key={j}>
-                  {` ${item.coordX},${item.coordZ},${item.coordY} ${fueRotado(item)}`}
+                  {` ${item.coordX},${item.coordY},${item.coordZ} ${fueRotado(item)}`}
                 </li>
               );
             }
@@ -106,7 +106,7 @@ export default function ResultadoLog({ packingResult, containerId }: IResultadoL
     <div className={styles.root}>
       <h4>Contenedor</h4>
 
-      <span>{`${contenedor.dim1} x ${contenedor.dim2} x ${contenedor.dim3}`}</span>
+      <span>{`${contenedor.dim1} x ${contenedor.dim3} x ${contenedor.dim2}`}</span>
       <p>{`Packing Completo: ${packingResult.isCompletePack}`}</p>
       <p>{`Contenedor ocupado: ${packingResult.percentContainerVolumePacked}%`}</p>
       <p>{`Volumen empacado: ${packingResult.percentItemVolumePacked}%`}</p>

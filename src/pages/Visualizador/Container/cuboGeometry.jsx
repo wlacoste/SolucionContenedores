@@ -23,9 +23,7 @@ function Cube(props) {
     if (!props.wireframe) {
       return <meshNormalMaterial opacity={0.75} transparent={true} wireframe={props.wireframe} />;
     } else {
-      return (
-        <meshStandardMaterial color={hovered ? "hotpink" : "orange"} wireframe={props.wireframe} />
-      );
+      return <meshStandardMaterial color={hovered ? "red" : "black"} wireframe={props.wireframe} />;
     }
   };
 

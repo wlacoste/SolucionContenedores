@@ -40,14 +40,14 @@ export default function GetContenedor({ id }: IContenedor) {
       const cajaContenedor: IBox = {
         id: response.id,
         dim1: response.length,
-        dim2: response.width,
-        dim3: response.height,
+        dim2: response.height,
+        dim3: response.width,
         coordX: 0,
         coordY: 0,
         coordZ: 0,
         packDimX: response.length,
-        packDimY: response.width,
-        packDimZ: response.height,
+        packDimY: response.height,
+        packDimZ: response.width,
       };
 
       setContenedor(cajaContenedor);
