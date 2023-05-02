@@ -12,7 +12,7 @@ interface IResultadoLog {
 }
 
 const noestaGirado = (item: IBox) => {
-  return item.dim1 === item.packDimX && item.dim2 === item.packDimY && item.dim3 === item.packDimZ;
+  return item.dim1 === item.packDimX && item.dim3 === item.packDimY && item.dim2 === item.packDimZ;
 };
 const fueRotado = (item: IBox) => {
   if (!noestaGirado(item)) {

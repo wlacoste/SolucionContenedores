@@ -33,6 +33,7 @@ function Cube(props) {
     <mesh
       {...props}
       ref={ref}
+      rotateOnAxis={(event) => rotate(y, 90)}
       scale={1}
       onClick={(event) => click(!clicked)}
       onPointerOut={(event) => hover(false)}
@@ -45,6 +46,7 @@ function Cube(props) {
       {/* <meshPhongMaterial transparent color="#ff0000" opacity={0.3} /> */}
       {/* <meshPhongMaterial material={materials} /> */}
       {/* <meshNormalMaterial opacity={0.75} transparent={true} wireframe={props.wireframe} /> */}
+
       {material()}
     </mesh>
   );

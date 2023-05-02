@@ -99,7 +99,7 @@ export function InputSegundo() {
             <section key={field.id} className={styles.formRoot}>
               <div className={styles.input}>
                 <Input
-                  label={index == 0 ? "Dim X" : ""}
+                  label={index == 0 ? "Largo" : ""}
                   placeholder="dimx"
                   type="text"
                   {...register(`paquete.${index}.dimx`, { required: true })}
@@ -109,7 +109,7 @@ export function InputSegundo() {
               </div>
               <div className={styles.input}>
                 <Input
-                  label={index == 0 ? "Dim Y" : ""}
+                  label={index == 0 ? "Ancho" : ""}
                   placeholder="dimy"
                   type="text"
                   {...register(`paquete.${index}.dimy`, { required: true })}
@@ -119,7 +119,7 @@ export function InputSegundo() {
               </div>
               <div className={styles.input}>
                 <Input
-                  label={index == 0 ? "Dim Z" : ""}
+                  label={index == 0 ? "Alto" : ""}
                   placeholder="dimz"
                   type="number"
                   {...register(`paquete.${index}.dimz`, { required: true })}

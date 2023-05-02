@@ -11,8 +11,9 @@ import { useControls } from "leva";
 
 import styles from "./estilos.module.scss";
 import Cube from "./cuboGeometry";
+import GetContenedor from "./contenedor";
 
-const ContenedorComponente = React.lazy(() => import("./contenedor"));
+// const ContenedorComponente = React.lazy(() => import("./contenedor"));
 
 export interface IListaBox {
   cajas: IBox[];
@@ -27,7 +28,7 @@ const getCajas = (cajas: IBox[]) => {
         key={i}
         esmaterial={true}
         position={posicionCanonica(caja)}
-        scale={[caja.packDimX, caja.packDimZ, caja.packDimY]}
+        scale={[caja.packDimX, caja.packDimY, caja.packDimZ]}
         wireframe={false}
       />
     );
@@ -37,8 +38,8 @@ const getCajas = (cajas: IBox[]) => {
 export const posicionCanonica = (caja: IBox) => {
   const res = [
     caja.coordX + caja.packDimX / 2,
-    caja.coordZ + caja.packDimZ / 2,
     caja.coordY + caja.packDimY / 2,
+    caja.coordZ + caja.packDimZ / 2,
   ];
 
   return res;
@@ -57,12 +58,12 @@ function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
   return (
     <div className={styles.divContainer}>
       <section className={styles.GeometryContainer}>
-        <Canvas camera={{ position: [100, 100, 100], fov: 50 }}>
+        <Canvas camera={{ position: [20, 50, 100], fov: 50 }}>
           <pointLight position={[10, 10, 10]} />
           <ambientLight />
           {getCajas(cajas)}
           {/* {getContenedor(containerId)} */}
-          <ContenedorComponente id={containerId} />
+          <GetContenedor id={containerId} />
           <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
           <axesHelper args={[5]} />
           <OrbitControls />

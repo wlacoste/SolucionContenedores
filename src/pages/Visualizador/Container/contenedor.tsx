@@ -4,13 +4,23 @@ import { container } from "domain/IResultado";
 import { getContenedorData } from "app/empaquetado";
 import { useEffect, useState } from "react";
 
-import { posicionCanonica } from "./container";
 import Cube from "./cuboGeometry";
 
 interface IContenedor {
   id: number;
 }
-export default function getContenedor({ id }: IContenedor) {
+
+const posicionCanonica = (caja: IBox) => {
+  const res = [
+    caja.coordX + caja.packDimX / 2,
+    caja.coordY + caja.packDimZ / 2,
+    caja.coordZ + caja.packDimY / 2,
+  ];
+
+  return res;
+};
+
+export default function GetContenedor({ id }: IContenedor) {
   const [contenedor, setContenedor] = useState<IBox>({
     id: id,
     dim1: 0,
