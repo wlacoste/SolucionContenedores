@@ -1,5 +1,4 @@
 import { IBox } from "domain/IBox";
-import { container } from "domain/IResultado";
 
 import { getContenedorData } from "app/empaquetado";
 import { useEffect, useState } from "react";
@@ -13,8 +12,8 @@ interface IContenedor {
 const posicionCanonica = (caja: IBox) => {
   const res = [
     caja.coordX + caja.packDimX / 2,
-    caja.coordY + caja.packDimZ / 2,
-    caja.coordZ + caja.packDimY / 2,
+    caja.coordY + caja.packDimY / 2,
+    caja.coordZ + caja.packDimZ / 2,
   ];
 
   return res;
@@ -37,6 +36,8 @@ export default function GetContenedor({ id }: IContenedor) {
   useEffect(() => {
     async function getContenedor() {
       const response = await getContenedorData(id);
+      //invierto heigth con width asi la altura
+      // se vuelve el eje vertical en el visualizador
       const cajaContenedor: IBox = {
         id: response.id,
         dim1: response.length,
@@ -61,7 +62,7 @@ export default function GetContenedor({ id }: IContenedor) {
     <Cube
       esmaterial={false}
       position={posicionCanonica(contenedor)}
-      scale={[contenedor.dim1, contenedor.dim3, contenedor.dim2]}
+      scale={[contenedor.dim1, contenedor.dim2, contenedor.dim3]}
       wireframe={true}
     />
   );

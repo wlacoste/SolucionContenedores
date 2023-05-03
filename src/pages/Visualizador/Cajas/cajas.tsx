@@ -1,7 +1,6 @@
 import { resultado } from "domain/IResultado";
-import { PackingResults } from "domain/IPackingResult";
 
-import GeometryContainer, { IListaBox } from "pages/Visualizador/Container/container";
+import GeometryContainer from "pages/Visualizador/Container/container";
 import { useAppSelector } from "store/hooks";
 import { selectEmpaquetado } from "store/features/empaquetado";
 import { useState } from "react";
