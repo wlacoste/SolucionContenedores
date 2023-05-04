@@ -1,9 +1,9 @@
 export type FormValues = {
   paquete: {
     id: number;
-    dimx: number;
-    dimy: number;
-    dimz: number;
+    largo: number;
+    ancho: number;
+    alto: number;
     cantidad: number;
   }[];
 };

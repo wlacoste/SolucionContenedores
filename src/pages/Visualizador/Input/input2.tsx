@@ -18,9 +18,9 @@ import styles from "./Input.module.scss";
 const validationSchema = object().shape({
   paquete: array().of(
     object().shape({
-      dimx: number().required("Campo requerido").min(0.001),
-      dimy: number().required("Campo requerido").min(0.001),
-      dimz: number().required("Campo requerido").min(0.001),
+      largo: number().required("Campo requerido").min(0.001),
+      ancho: number().required("Campo requerido").min(0.001),
+      alto: number().required("Campo requerido").min(0.001),
       cantidad: number().integer().positive().min(1).required("Campo requerido"),
     })
   ),
@@ -36,7 +36,7 @@ export function InputSegundo() {
     control,
   } = useForm({
     defaultValues: {
-      paquete: [{ dimx: null, dimy: null, dimz: null, cantidad: null }],
+      paquete: [{ largo: null, ancho: null, alto: null, cantidad: null }],
     },
     resolver: yupResolver(validationSchema),
   });
@@ -85,9 +85,9 @@ export function InputSegundo() {
             size="small"
             onClick={() => {
               prepend({
-                dimx: null,
-                dimy: null,
-                dimz: null,
+                largo: null,
+                ancho: null,
+                alto: null,
                 cantidad: null,
               });
             }}
@@ -100,30 +100,30 @@ export function InputSegundo() {
               <div className={styles.input}>
                 <Input
                   label={index == 0 ? "Largo" : ""}
-                  placeholder="dimx"
+                  placeholder="largo"
                   type="text"
-                  {...register(`paquete.${index}.dimx`, { required: true })}
-                  error={Boolean(errors.paquete != undefined && errors.paquete[index]?.dimx)}
+                  {...register(`paquete.${index}.largo`, { required: true })}
+                  error={Boolean(errors.paquete != undefined && errors.paquete[index]?.largo)}
                   inputProps={{ min: 0 }}
                 />
               </div>
               <div className={styles.input}>
                 <Input
                   label={index == 0 ? "Ancho" : ""}
-                  placeholder="dimy"
+                  placeholder="ancho"
                   type="text"
-                  {...register(`paquete.${index}.dimy`, { required: true })}
-                  error={Boolean(errors.paquete && errors.paquete[index]?.dimy)}
+                  {...register(`paquete.${index}.ancho`, { required: true })}
+                  error={Boolean(errors.paquete && errors.paquete[index]?.ancho)}
                   inputProps={{ min: 0 }}
                 />
               </div>
               <div className={styles.input}>
                 <Input
                   label={index == 0 ? "Alto" : ""}
-                  placeholder="dimz"
+                  placeholder="alto"
                   type="number"
-                  {...register(`paquete.${index}.dimz`, { required: true })}
-                  error={Boolean(errors.paquete && errors.paquete[index]?.dimz)}
+                  {...register(`paquete.${index}.alto`, { required: true })}
+                  error={Boolean(errors.paquete && errors.paquete[index]?.alto)}
                   inputProps={{ min: 0 }}
                 />
               </div>

@@ -16,6 +16,8 @@ class _EmpaquetadoService extends ServiceBase {
   }
 
   postEmpaquetado(paquetes: FormValues) {
+    console.log("request");
+    console.log(paquetes.paquete);
     const promise = axios.post(process.env.REACT_APP_API_PACKING!, paquetes.paquete);
 
     return promise;
