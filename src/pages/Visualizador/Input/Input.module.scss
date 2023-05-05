@@ -2,6 +2,12 @@
     background-color: aquamarine;
 }
 
+.iconosBlock{
+    display: block;
+    max-width: 600px;
+    width: 100%;
+}
+
 .formRoot{
     display: flex;
     margin:10px;
@@ -10,6 +16,34 @@
     margin-left:20px;
     margin-top: 10px;
 }
+
+
+.iconosRoot{
+    display: flex;
+    margin:10px;
+    flex-wrap: wrap;
+    max-width: 400px;
+    margin-left:15px;
+    margin-top: 10px;
+    min-width: 300px;
+    padding-right:50px ;
+    align-content: space-between;
+}
+
+.iconoDiv{
+    width: 100%;
+    
+}
+
+.iconoDi{
+    width: 20%;
+    display: block;
+    height: auto;
+    margin: 7px 10px ;
+    padding:0;
+}
+
+
 
 .input{
     width: 20%;
@@ -54,10 +88,10 @@ input > label{
 .bottonForm{
     display: flex;
     padding-bottom: 20px;
-    margin: 3px 10px 15px 35px;
+    margin: 3px 50px 15px 35px;
     width: 100%;
 justify-content:flex-start;
-gap: 50px;
+gap: 20px;
 
 }
 
@@ -66,6 +100,8 @@ gap: 50px;
     border-radius: 50%;
     height: 40px;
     width: 40px;
+    margin-left: 10px;
+    padding-left: 10px;
 }
 
 input::-webkit-outer-spin-button,

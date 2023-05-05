@@ -1,17 +1,12 @@
-import { resultado } from "domain/IResultado";
 import { FormValues } from "domain/FormValues";
 
 import { Button, IconButton, Input } from "@architecture-it/stylesystem";
 import { useFieldArray, useForm } from "react-hook-form";
 import { object, array, string, number } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { faPlus, faTrash } from "@fortawesome/pro-solid-svg-icons";
-import axios from "axios";
-import useEmpaquetado from "app/empaquetado/useEmpaquetado";
 import { getEmpaquetado } from "store/features/empaquetado/asyncActions";
-import { useAppDispatch, useAppSelector } from "store/hooks";
-import { selectEmpaquetado } from "store/features/empaquetado";
+import { useAppDispatch } from "store/hooks";
 
 import styles from "./Input.module.scss";
 
@@ -51,12 +46,7 @@ export function InputSegundo() {
     x.paquete.forEach((element, index) => {
       element.id = index + 1;
     });
-    // let { data } = await axios.post("http://localhost:5000/api/v1/Empaquetado", x.paquete);
-    // let response = await axios.post("http://localhost:5000/api/v1/Empaquetado");
-    // let res = data as resultado[];
     let result = dispatch(getEmpaquetado(x));
-
-    // console.log(result);
   };
 
   return (
@@ -96,64 +86,116 @@ export function InputSegundo() {
         </div>
         {fields.map((field, index) => {
           return (
-            <section key={field.id} className={styles.formRoot}>
-              <div className={styles.input}>
-                <Input
-                  label={index == 0 ? "Largo" : ""}
-                  placeholder="largo"
-                  type="text"
-                  {...register(`paquete.${index}.largo`, { required: true })}
-                  error={Boolean(errors.paquete != undefined && errors.paquete[index]?.largo)}
-                  inputProps={{ min: 0 }}
+            <div key={field.id}>
+              <IconosCajas key={field.id} debeRenderizar={index} />
+              <section key={field.id} className={styles.formRoot}>
+                <div className={styles.input}>
+                  <Input
+                    label={index == 0 ? "Largo" : ""}
+                    placeholder="largo"
+                    type="text"
+                    {...register(`paquete.${index}.largo`, { required: true })}
+                    error={Boolean(errors.paquete != undefined && errors.paquete[index]?.largo)}
+                    inputProps={{ min: 0 }}
+                  />
+                </div>
+                <div className={styles.input}>
+                  <Input
+                    label={index == 0 ? "Ancho" : ""}
+                    placeholder="ancho"
+                    type="text"
+                    {...register(`paquete.${index}.ancho`, { required: true })}
+                    error={Boolean(errors.paquete && errors.paquete[index]?.ancho)}
+                    inputProps={{ min: 0 }}
+                  />
+                </div>
+                <div className={styles.input}>
+                  <Input
+                    label={index == 0 ? "Alto" : ""}
+                    placeholder="alto"
+                    type="number"
+                    {...register(`paquete.${index}.alto`, { required: true })}
+                    error={Boolean(errors.paquete && errors.paquete[index]?.alto)}
+                    inputProps={{ min: 0 }}
+                  />
+                </div>
+                <div className={styles.input}>
+                  <Input
+                    label={index == 0 ? "Cantidad" : ""}
+                    placeholder="cantidad"
+                    type="number"
+                    {...register(`paquete.${index}.cantidad`, { required: true })}
+                    error={Boolean(errors.paquete && errors.paquete[index]?.cantidad)}
+                    inputProps={{ min: 1 }}
+                  />
+                </div>
+                <IconButton
+                  IconProps={{
+                    icon: faTrash,
+                  }}
+                  TooltipText=""
+                  color="primary"
+                  size="medium"
+                  onClick={() => {
+                    remove(index);
+                  }}
+                  onFocusVisible={() => {}}
                 />
-              </div>
-              <div className={styles.input}>
-                <Input
-                  label={index == 0 ? "Ancho" : ""}
-                  placeholder="ancho"
-                  type="text"
-                  {...register(`paquete.${index}.ancho`, { required: true })}
-                  error={Boolean(errors.paquete && errors.paquete[index]?.ancho)}
-                  inputProps={{ min: 0 }}
-                />
-              </div>
-              <div className={styles.input}>
-                <Input
-                  label={index == 0 ? "Alto" : ""}
-                  placeholder="alto"
-                  type="number"
-                  {...register(`paquete.${index}.alto`, { required: true })}
-                  error={Boolean(errors.paquete && errors.paquete[index]?.alto)}
-                  inputProps={{ min: 0 }}
-                />
-              </div>
-              <div className={styles.input}>
-                <Input
-                  label={index == 0 ? "Cantidad" : ""}
-                  placeholder="cantidad"
-                  type="number"
-                  {...register(`paquete.${index}.cantidad`, { required: true })}
-                  error={Boolean(errors.paquete && errors.paquete[index]?.cantidad)}
-                  inputProps={{ min: 1 }}
-                />
-              </div>
-
-              <IconButton
-                IconProps={{
-                  icon: faTrash,
-                }}
-                TooltipText=""
-                color="primary"
-                size="medium"
-                onClick={() => {
-                  remove(index);
-                }}
-                onFocusVisible={() => {}}
-              />
-            </section>
+              </section>
+            </div>
           );
         })}
       </form>
     </div>
   );
 }
+interface debeRenderizar {
+  debeRenderizar: number;
+}
+function IconosCajas({ debeRenderizar }: debeRenderizar) {
+  if (debeRenderizar !== 0) {
+    return <></>;
+  }
+
+  return (
+    <div className={styles.formRoot}>
+      <div className={styles.iconoDi}>
+        <img
+          alt=""
+          src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/profundidad.svg"
+        />
+      </div>
+      <div className={styles.iconoDi}>
+        <img
+          alt=""
+          src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/ancho.svg"
+        />
+      </div>
+      <div className={styles.iconoDi}>
+        <img
+          alt=""
+          src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/altura.svg"
+        />
+      </div>
+    </div>
+  );
+}
+
+// function IconosCajas({ debeRenderizar, tipo }: debeRenderizar) {
+//   if (debeRenderizar !== 0) {
+//     return <></>;
+//   }
+
+//   return (
+//     <div className={styles.iconosBlock}>
+//       <div className={styles.iconosRoot}>
+//         <div className={styles.iconoDi}>
+//           <img
+//             alt=""
+//             src={`https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/${tipo}.svg`}
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }

@@ -9,7 +9,7 @@ export default function getCajas(cajas: IBox[]) {
         key={i}
         esmaterial={true}
         position={posicionCanonica(caja)}
-        scale={[caja.packDimX, caja.packDimY, caja.packDimZ]}
+        scale={[caja.packDimX - 0.05, caja.packDimY - 0.05, caja.packDimZ - 0.05]}
         wireframe={false}
       />
     );
