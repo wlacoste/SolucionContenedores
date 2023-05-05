@@ -15,17 +15,20 @@
 }
 
 
+.listParent{
+    max-height: 400px;
+    overflow: -moz-scrollbars-none;
+    overflow-y:scroll;
+
+}
+.listParent::-webkit-scrollbar { width: 0 !important }
+
+
 
 .items>ul{
     columns: 2;
     margin-top: 10px;
     margin-left: 0;
-}
-
-.items>ul::before{
-    content:attr(aria-label);
-    font-weight:bold;
-    margin-top: 0;
 }
 
 

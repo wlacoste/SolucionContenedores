@@ -87,8 +87,8 @@ export function InputSegundo() {
         {fields.map((field, index) => {
           return (
             <div key={field.id}>
-              <IconosCajas key={field.id} debeRenderizar={index} />
-              <section key={field.id} className={styles.formRoot}>
+              <IconosCajas debeRenderizar={index} />
+              <section className={styles.formRoot}>
                 <div className={styles.input}>
                   <Input
                     label={index == 0 ? "Largo" : ""}
@@ -180,22 +180,3 @@ function IconosCajas({ debeRenderizar }: debeRenderizar) {
     </div>
   );
 }
-
-// function IconosCajas({ debeRenderizar, tipo }: debeRenderizar) {
-//   if (debeRenderizar !== 0) {
-//     return <></>;
-//   }
-
-//   return (
-//     <div className={styles.iconosBlock}>
-//       <div className={styles.iconosRoot}>
-//         <div className={styles.iconoDi}>
-//           <img
-//             alt=""
-//             src={`https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/${tipo}.svg`}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

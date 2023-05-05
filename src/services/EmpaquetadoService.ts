@@ -28,6 +28,11 @@ class _EmpaquetadoService extends ServiceBase {
 
     return promise;
   }
+  getContainers() {
+    const promise = axios.get(process.env.REACT_APP_API_CONTAINER!);
+
+    return promise;
+  }
 }
 const EmpaquetadoService = new _EmpaquetadoService();
 

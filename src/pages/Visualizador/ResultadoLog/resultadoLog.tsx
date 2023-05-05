@@ -1,14 +1,16 @@
 import { IBox } from "domain/IBox";
 import { PackingResults } from "domain/IPackingResult";
+import { IContenedor } from "domain/IContenedor";
 
-import { getContenedorData } from "app/empaquetado";
+import { getContenedorData } from "app/contenedor";
 import { useEffect, useState } from "react";
+import useContenedor from "app/contenedor/useContenedor";
 
 import styles from "./estilos.module.scss";
 
 interface IResultadoLog {
   packingResult: PackingResults;
-  containerId: number;
+  contenedor: IContenedor;
 }
 
 const noestaGirado = (item: IBox) => {
@@ -47,17 +49,19 @@ const texto = (items: IBox[] | undefined) => {
         Volumen unitario: ${dimensiones?.volume}`}{" "}
         </p>
         {/* <h4>Posiciones</h4> */}
-        <ul>
-          {items.map((item, j) => {
-            if (item.id.toString() === i && item.isPacked) {
-              return (
-                <li key={j}>
-                  {` ${item.coordX},${item.coordZ},${item.coordY} ${fueRotado(item)}`}
-                </li>
-              );
-            }
-          })}
-        </ul>
+        <div className={styles.listParent}>
+          <ul>
+            {items.map((item, j) => {
+              if (item.id.toString() === i && item.isPacked) {
+                return (
+                  <li key={`${index}${j}`}>
+                    {` ${item.coordX},${item.coordZ},${item.coordY} ${fueRotado(item)}`}
+                  </li>
+                );
+              }
+            })}
+          </ul>
+        </div>
       </div>
     );
   });
@@ -65,48 +69,12 @@ const texto = (items: IBox[] | undefined) => {
   return <div>{result}</div>;
 };
 
-export default function ResultadoLog({ packingResult, containerId }: IResultadoLog) {
-  const [contenedor, setContenedor] = useState<IBox>({
-    id: containerId,
-    dim1: 0,
-    dim2: 0,
-    dim3: 0,
-    coordX: 0,
-    coordY: 0,
-    coordZ: 0,
-    packDimX: 0,
-    packDimY: 0,
-    packDimZ: 0,
-  });
-
-  useEffect(() => {
-    async function getContenedor() {
-      const response = await getContenedorData(containerId);
-      const cajaContenedor: IBox = {
-        id: response.id,
-        dim1: response.length,
-        dim2: response.width,
-        dim3: response.height,
-        coordX: 0,
-        coordY: 0,
-        coordZ: 0,
-        packDimX: 0,
-        packDimY: 0,
-        packDimZ: 0,
-      };
-
-      setContenedor(cajaContenedor);
-    }
-    if (contenedor.id != 0) {
-      getContenedor();
-    }
-  }, []);
-
+export default function ResultadoLog({ packingResult, contenedor }: IResultadoLog) {
   return (
     <div className={styles.root}>
-      <h4>Contenedor</h4>
+      <h4>{`Contenedor ${contenedor.id}`}</h4>
 
-      <span>{`${contenedor.dim1} x ${contenedor.dim2} x ${contenedor.dim3}`}</span>
+      <span>{`${contenedor.length} x ${contenedor.width} x ${contenedor.height}`}</span>
       <p>{`Packing Completo: ${packingResult.isCompletePack}`}</p>
       <p>{`Contenedor ocupado: ${packingResult.percentContainerVolumePacked}%`}</p>
       <p>{`Volumen empacado: ${packingResult.percentItemVolumePacked}%`}</p>

@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/no-unknown-property */
 import { IBox } from "domain/IBox";
+import { IContenedor } from "domain/IContenedor";
 
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -16,10 +17,10 @@ export interface IListaBox {
 
 interface IGeometryContainer {
   cajas: IBox[];
-  containerId: number;
+  contenedor: IContenedor;
 }
 
-function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
+function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
   return (
     <div className={styles.divContainer}>
       <section className={styles.GeometryContainer}>
@@ -27,7 +28,7 @@ function GeometryContainer({ cajas, containerId }: IGeometryContainer) {
           <pointLight position={[10, 10, 10]} />
           <ambientLight />
           {getCajas(cajas)}
-          <GetContenedor id={containerId} />
+          <GetContenedor contenedor={contenedor} />
           <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
           <axesHelper args={[5]} />
           <OrbitControls />
