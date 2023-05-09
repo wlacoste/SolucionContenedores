@@ -16,46 +16,8 @@ export default function Main({ children }: IMainProps) {
 
   return (
     <div className={styles.container}>
-      <Header onClickButton={handleOpen}>
-        <UserAvatar />
-      </Header>
-      <SidebarWrapper
-        open={open}
-        unauthenticatedRoutes={[
-          {
-            item: "home",
-            onClick: () => {
-              if (pathname !== "/") {
-                navigate("/");
-              }
-              handleClose();
-            },
-            selected: pathname === "/",
-            fontAwesomeProps: {
-              icon: faHome,
-            },
-            className: styles.listItem,
-            divider: true,
-          },
-          {
-            item: "caja",
-            onClick: () => {
-              if (pathname !== "/caja") {
-                navigate("/caja");
-              }
-              handleClose();
-            },
-            selected: pathname === "/caja",
-            fontAwesomeProps: {
-              icon: faBoxTaped,
-            },
-            className: styles.listItem,
-            divider: true,
-          },
-        ]}
-        onClose={handleClose}
-        onOpen={handleOpen}
-      />
+      <Header onClickButton={handleOpen}>{/* <UserAvatar /> */}</Header>
+      <SidebarWrapper open={open} onClose={handleClose} onOpen={handleOpen} />
       <main className={styles.main}>{children}</main>
       <Footer />
     </div>
