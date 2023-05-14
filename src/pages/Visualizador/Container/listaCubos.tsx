@@ -1,6 +1,6 @@
 import { IBox } from "domain/IBox";
 
-import Cube from "./cuboGeometry";
+import Cube from "./cubo";
 
 export default function getCajas(cajas: IBox[]) {
   return cajas.map((caja, i) => {

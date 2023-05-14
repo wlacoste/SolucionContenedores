@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useRef, useState } from "react";
 
-function Cube(props) {
+function Cube(props: any) {
   const ref = useRef();
   const [hovered, hover] = useState(false);
 
@@ -17,7 +17,6 @@ function Cube(props) {
     <mesh
       {...props}
       ref={ref}
-      rotateOnAxis={(event) => rotate(y, 90)}
       scale={1}
       onPointerOut={(event) => hover(false)}
       onPointerOver={(event) => hover(true)}
