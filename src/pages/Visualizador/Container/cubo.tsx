@@ -1,8 +1,16 @@
 /* eslint-disable react/no-unknown-property */
-import { useRef, useState } from "react";
+import { useControls } from "leva";
+import { useMemo, useRef, useState } from "react";
 import { MeshPhysicalMaterial } from "three";
 
 function Cube(props: any) {
+  const opcionesCubo = useMemo(() => {
+    return {
+      color: { value: props.color },
+    };
+  }, []);
+  const pB = useControls(`Paquete ${props.nombre}`, opcionesCubo);
+
   const ref = useRef();
   const [hovered, hover] = useState(false);
 
@@ -14,7 +22,7 @@ function Cube(props: any) {
         <meshPhysicalMaterial
           {...props}
           castShadow={true}
-          color={props.color}
+          color={pB.color}
           ior={props.ior}
           opacity={props.opacity}
           receiveShadow={true}

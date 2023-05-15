@@ -3,14 +3,18 @@
 import { IBox } from "domain/IBox";
 import { IContenedor } from "domain/IContenedor";
 
-import { useControls } from "leva";
+import { extend, Object3DNode } from "@react-three/fiber";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+import { Leva, useControls } from "leva";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { useMemo } from "react";
-import { DoubleSide } from "three";
-import { presetsObj, PresetsType } from "@react-three/drei/helpers/environment-assets";
+import { presetsObj } from "@react-three/drei/helpers/environment-assets";
+import { FullTheme, LevaCustomTheme } from "leva/dist/declarations/src/styles";
 
+import almendra from "./Almendra_Bold.json";
 import GetContenedor from "./contenedor";
 import styles from "./estilos.module.scss";
 import listaCubos from "./listaCubos";
@@ -24,17 +28,35 @@ interface IGeometryContainer {
   contenedor: IContenedor;
 }
 
+extend({ TextGeometry });
+
+declare module "@react-three/fiber" {
+  interface ThreeElements {
+    textGeometry: Object3DNode<TextGeometry, typeof TextGeometry>;
+  }
+}
+const creadorTexto = (texto: string) => {
+  const font = new FontLoader().parse(almendra);
+
+  return (
+    <mesh>
+      <textGeometry args={[texto, { font, size: 1, height: 0.1 }]} />
+      <meshLambertMaterial attach="material" color={"gold"} />
+    </mesh>
+  );
+};
+
 function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
   const options = useMemo(() => {
     return {
-      intensity: { value: 1, min: 0, max: 10, step: 0.5 },
+      intensity: { value: 0, min: 0, max: 10, step: 0.5 },
       x: { value: 0, min: -100, max: 100, step: 5 },
       y: { value: 0, min: -100, max: 100, step: 5 },
-      z: { value: 0, min: -100, max: 100, step: 5 },
-      ambientLightOn: { value: 1, min: 0, max: 2, step: 0.1 },
+      z: { value: 100, min: -100, max: 100, step: 5 },
+      ambientLightOn: { value: 0, min: 0, max: 1, step: 1 },
       background: false,
       selectedOption: {
-        value: "sunset",
+        value: "warehouse",
         options: [
           "sunset",
           "dawn",
@@ -54,8 +76,27 @@ function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
   }, []);
   const pB = useControls("Luz", options);
 
+  const tema: LevaCustomTheme = {
+    colors: {
+      elevation1: "#d71920",
+      elevation2: "#fcfdff",
+      elevation3: "#e1e3e8",
+      accent1: "#dbdbdb",
+      accent2: "#ff3939",
+      accent3: "#fafafa",
+      highlight1: "#ffffff",
+      highlight2: "#404248",
+      highlight3: "#655656",
+      vivid1: "#ffcc00",
+    },
+  };
+
   return (
     <div className={styles.divContainer}>
+      <Leva
+        collapsed // default = false, when true the GUI is collpased
+        theme={tema}
+      />
       <section className={styles.GeometryContainer}>
         <Canvas shadows camera={{ position: [20, 50, 100], fov: 50 }}>
           <Environment
@@ -79,10 +120,10 @@ function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
             shadow-mapSize-width={1024}
           />
           {/* <pointLight position={[10, 10, 10]} /> */}
-          <ambientLight intensity={pB.ambientLightOn} />
+          {/* <ambientLight intensity={pB.ambientLightOn} /> */}
           {listaCubos(cajas)}
           <GetContenedor contenedor={contenedor} />
-          <gridHelper args={[500, 50, 0xeeeeee, 0xeeeeee]} />
+          <gridHelper args={[500, 50, 0xee0000, 0xeeeeee]} />
           <axesHelper args={[5]} />
           <OrbitControls />
           <primitive object={new THREE.AxesHelper(500)} />

@@ -22,7 +22,7 @@ export default function GetContenedor({ contenedor }: IGetContenedor) {
   const options = useMemo(() => {
     return {
       wireFrame: true,
-      color: { value: "green" },
+      color: { value: "#001f47" },
       opacity: { value: 0.5, min: 0, max: 1, step: 0.1 },
     };
   }, []);

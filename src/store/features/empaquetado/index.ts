@@ -23,7 +23,7 @@ export const empaquetadoSlice = createSlice({
       fullfiledSimpleCallbackCase(state);
       const data = [action.payload].concat(state.data);
 
-      state.data = data;
+      state.data = [data];
     });
   },
 });
