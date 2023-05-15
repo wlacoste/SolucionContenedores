@@ -1,15 +1,34 @@
 /* eslint-disable react/no-unknown-property */
 import { useRef, useState } from "react";
+import { MeshPhysicalMaterial } from "three";
 
 function Cube(props: any) {
   const ref = useRef();
   const [hovered, hover] = useState(false);
 
   const material = () => {
-    if (!props.wireframe) {
+    if (!props.esmaterial) {
       return <meshNormalMaterial opacity={0.75} transparent={true} wireframe={props.wireframe} />;
     } else {
-      return <meshStandardMaterial color={hovered ? "red" : "black"} wireframe={props.wireframe} />;
+      return (
+        <meshPhysicalMaterial
+          {...props}
+          castShadow={true}
+          color={props.color}
+          ior={props.ior}
+          opacity={props.opacity}
+          receiveShadow={true}
+          transparent={true}
+          wireframe={props.wireframe}
+        />
+        // <meshStandardMaterial
+        //   {...props}
+        //   color={props.color}
+        //   opacity={props.opacity}
+        //   transparent={true}
+        //   wireframe={props.wireframe}
+        // />
+      );
     }
   };
 
