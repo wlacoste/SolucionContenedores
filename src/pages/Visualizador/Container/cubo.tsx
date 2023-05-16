@@ -1,16 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 import { useControls } from "leva";
 import { useMemo, useRef, useState } from "react";
-import { MeshPhysicalMaterial } from "three";
 
 function Cube(props: any) {
-  const opcionesCubo = useMemo(() => {
-    return {
-      color: { value: props.color },
-    };
-  }, []);
-  const pB = useControls(`Paquete ${props.nombre}`, opcionesCubo);
-
   const ref = useRef();
   const [hovered, hover] = useState(false);
 
@@ -20,22 +12,12 @@ function Cube(props: any) {
     } else {
       return (
         <meshPhysicalMaterial
+          key={props.ikey + props.ikey}
           {...props}
           castShadow={true}
-          color={pB.color}
-          ior={props.ior}
-          opacity={props.opacity}
           receiveShadow={true}
           transparent={true}
-          wireframe={props.wireframe}
         />
-        // <meshStandardMaterial
-        //   {...props}
-        //   color={props.color}
-        //   opacity={props.opacity}
-        //   transparent={true}
-        //   wireframe={props.wireframe}
-        // />
       );
     }
   };
@@ -43,6 +25,7 @@ function Cube(props: any) {
   return (
     <mesh
       {...props}
+      key={props.ikey + "C"}
       ref={ref}
       scale={1}
       onPointerOut={(event) => hover(false)}

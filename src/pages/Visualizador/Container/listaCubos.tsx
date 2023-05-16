@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import Cube from "./cubo";
 
 const getColor = (i: number) => {
+  let c = i;
   const colores = [
     "#6B9FFF",
     "#EF67F5",
@@ -19,34 +20,56 @@ const getColor = (i: number) => {
     "#EE74F7",
   ];
 
-  if (i >= colores.length) {
-    i = 0;
+  if (c >= colores.length) {
+    c = 0;
   }
 
-  return colores[i];
+  return colores[c];
 };
+
+const getControls = (idCaja: number[]) => {
+  //   const cantCajasDiferentes = countUnique(idCaja);
+  //   const controles = [];
+
+  //   for (let i = 0; i < cantCajasDiferentes; ++i) {
+  //     useControls(`Paquetes ${i} `, { color: getColor(i) });
+  //   }
+
+  //   return controles;
+  // };
+  return [
+    useControls("Paquetes 1", { color: "#6B9FFF" }),
+    useControls("Paquetes 2", { color: "#EF67F5" }),
+    useControls("Paquetes 3", { color: "#6DE896" }),
+    useControls("Paquetes 4", { color: "#FFF36B" }),
+    useControls("Paquetes 5", { color: "#F58D50" }),
+  ];
+};
+
+function countUnique(iterable: number[]) {
+  return new Set(iterable).size;
+}
 
 export default function listaCubos(cajas: IBox[]) {
   const options = useMemo(() => {
     return {
       material: false,
-      // color: { value: "#0095ba" },
       opacidad: { value: 0.7, min: 0, max: 1, step: 0.1 },
       ior: { value: 1.33, min: 1, max: 2.333, step: 0.01 },
-      transmision: { value: 0, min: 0, max: 1, step: 0.01 }, // Add transparency
-      rugosidad: { value: 0, min: 0, max: 1, step: 0.01 }, // Add transparency
+      transmision: { value: 0, min: 0, max: 1, step: 0.01 },
+      rugosidad: { value: 0, min: 0, max: 1, step: 0.01 },
       grosor: { value: 10, min: 0, max: 20, step: 0.5 },
     };
   }, []);
   const pB = useControls("Paquetes", options);
+  const colorControls = getControls(cajas.map((caja) => caja.id));
 
+  //TODO generar un use memo que programaticamente defina la cantindad de valores(paquetes) y usar solo el mismo hook
   return cajas.map((caja, i) => {
-    const color = getColor(caja.id); // armar a futuro un getcolor con algun hash
-
     return (
       <Cube
         key={i}
-        color={color}
+        color={colorControls[caja.id - 1].color}
         esmaterial={pB.material}
         ior={pB.ior}
         nombre={caja.id}
