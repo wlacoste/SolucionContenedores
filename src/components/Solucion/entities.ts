@@ -6,6 +6,12 @@ export interface Item {
   Volume: number;
   Quantity: number;
   IsPacked: boolean;
+  CoordX: number;
+  CoordY: number;
+  CoordZ: number;
+  PackDimX: number;
+  PackDimY: number;
+  PackDimZ: number;
 }
 
 export interface Container {
@@ -34,6 +40,6 @@ export interface Layer {
 export interface ScrapPad {
   CumX: number;
   CumZ: number;
-  Post: ScrapPad | undefined;
-  Pre: ScrapPad | undefined;
+  Post: ScrapPad | null;
+  Pre: ScrapPad | null;
 }
