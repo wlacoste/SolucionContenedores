@@ -19,6 +19,7 @@ export interface Container {
 export interface AlgorithmPackingResult {
   PackedItems: Item[];
   UnpackedItems: Item[];
+  IsCompletePack: boolean;
 }
 
 export interface ContainerPackingResult {
@@ -27,7 +28,7 @@ export interface ContainerPackingResult {
 }
 
 export interface Layer {
-  LayerDim: number;
+  LayerDim: number | undefined;
   LayerEval: number;
 }
 export interface ScrapPad {
