@@ -64,10 +64,14 @@ let itemsToPackCount = 0;
 let totalItemVolume: number;
 let totalContainerVolume: number;
 
-function runSolution(container: Container, items: Item[]) {
+export function runSolution(container: Container, items: Item[]) {
+  console.log("ejecutando solucion");
   Initialize(container, items);
+  console.log("Inizializado");
   ExecuteIterations(container);
+  console.log("Iteraciones");
   Report(container);
+  console.log("Reporte");
 
   for (let i = 1; i <= itemsToPackCount; i++) {
     itemsToPack[i].Quantity = 1;
@@ -85,9 +89,13 @@ function runSolution(container: Container, items: Item[]) {
 }
 
 function Initialize(container: Container, items: Item[]) {
-  let itemsToPack: Item[] = [];
-  let itemsPackedInOrder: Item[];
-  let result: ContainerPackingResult[];
+  itemsToPack = [];
+  itemsPackedInOrder = [];
+  result = {
+    PackedItems: [],
+    UnpackedItems: [],
+    IsCompletePack: false,
+  };
 
   itemsToPack.push({
     Id: 0,
@@ -203,9 +211,11 @@ function ExecuteIterations(container: Container) {
 
     layers.push({
       LayerEval: -1,
-      LayerDim: undefined,
+      LayerDim: 0,
     });
+
     ListCanditLayers();
+
     // layers = layers.OrderBy(l => l.LayerEval).ToList();
     layers = layers.sort((l) => l.LayerEval);
 
@@ -273,6 +283,8 @@ function ExecuteIterations(container: Container) {
 }
 
 function ListCanditLayers() {
+  console.log("Consoleand list candidLayers");
+  console.log(itemsToPack);
   let same: boolean;
   let exdim = 0;
   let dimdif: number;
