@@ -99,11 +99,12 @@ function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
       />
       <section className={styles.GeometryContainer}>
         <Canvas shadows camera={{ position: [20, 50, 100], fov: 50 }}>
-          <Environment
+          {/* <Environment
             background={pB.background}
             blur={0.1}
-            preset={pB.selectedOption as keyof typeof presetsObj}
-          />
+            // preset={pB.selectedOption as keyof typeof presetsObj}
+            preset={"sunset"}
+          /> */}
 
           {/* <pointLight intensity={pB.intensity} position={[pB.x, pB.z, pB.y]} /> */}
           {/* <pointLight position={[-50, 100, -50]} /> */}
