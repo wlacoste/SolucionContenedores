@@ -1,15 +1,18 @@
 import { FormValues } from "domain/FormValues";
+import { resultado } from "domain/IResultado";
+import { PackingResults } from "domain/IPackingResult";
+import { IBox } from "domain/IBox";
 
 import * as useCases from "app/empaquetado";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { runSolution } from "../../../components/Solucion/abafit";
-import { Container, Item } from "../../../components/Solucion/entities";
+import { AlgorithmPackingResult, Container, Item } from "../../../components/Solucion/entities";
 
 export const getEmpaquetado = createAsyncThunk(
   "empaquetado/calcular",
   async (paquetes: FormValues) => {
-    const resultado = await useCases.calcularEmpaquetado(paquetes);
+    //const resultad = await useCases.calcularEmpaquetado(paquetes);
 
     console.log("Por ejecutar contenedor");
     console.log(paquetes);
@@ -20,12 +23,82 @@ export const getEmpaquetado = createAsyncThunk(
     console.log(items);
     const res = runSolution(container, items);
 
+    const resultadoMapeado = mapearRes(res);
+
     console.log("este es el resultado");
     console.log(res);
 
-    return resultado;
+    console.log("resultado algoritmo");
+    //console.log(resultad);
+
+    return resultadoMapeado as resultado[];
   }
 );
+
+function mapearRes(res: AlgorithmPackingResult) {
+  let resultado: resultado[] = [
+    {
+      containerID: 2,
+      algorithmPackingResults: [],
+    },
+  ];
+  let algorithm: PackingResults = {
+    algorithmID: 1,
+    algorithmName: "EB-AFIT",
+    isCompletePack: res.IsCompletePack,
+    packedItems: [],
+    packTimeInMilliseconds: 0,
+    percentContainerVolumePacked: 0,
+    percentItemVolumePacked: 0,
+    unpackedItems: [],
+  };
+  let packedItems: IBox[] = res.PackedItems.map((item) => {
+    let box: IBox = {
+      id: item.Id,
+      dim1: item.Dim1,
+      dim2: item.Dim2,
+      dim3: item.Dim3,
+      coordX: item.CoordX,
+      coordY: item.CoordY,
+      coordZ: item.CoordZ,
+      packDimX: item.PackDimX,
+      packDimY: item.PackDimY,
+      packDimZ: item.PackDimZ,
+      quantity: item.Quantity,
+      volume: item.Volume,
+      isPacked: item.IsPacked,
+    };
+
+    return box;
+  });
+
+  let UnpackedItems: IBox[] = res.UnpackedItems.map((item) => {
+    let box: IBox = {
+      id: item.Id,
+      dim1: item.Dim1,
+      dim2: item.Dim2,
+      dim3: item.Dim3,
+      coordX: item.CoordX,
+      coordY: item.CoordY,
+      coordZ: item.CoordZ,
+      packDimX: item.PackDimX,
+      packDimY: item.PackDimY,
+      packDimZ: item.PackDimZ,
+      quantity: item.Quantity,
+      volume: item.Volume,
+      isPacked: item.IsPacked,
+    };
+
+    return box;
+  });
+
+  algorithm.packedItems = packedItems;
+  algorithm.unpackedItems = UnpackedItems;
+
+  resultado[0].algorithmPackingResults.push(algorithm);
+
+  return resultado;
+}
 
 function mapToItems(paquetes: FormValues) {
   const a = paquetes.paquete.map((paquete, index) => {

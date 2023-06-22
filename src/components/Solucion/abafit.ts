@@ -65,13 +65,13 @@ let totalItemVolume: number;
 let totalContainerVolume: number;
 
 export function runSolution(container: Container, items: Item[]) {
-  console.log("ejecutando solucion");
+  //console.log("ejecutando solucion");
   Initialize(container, items);
-  console.log("Inizializado");
+  //console.log("Inizializado");
   ExecuteIterations(container);
-  console.log("Iteraciones");
+  //console.log("Iteraciones");
   Report(container);
-  console.log("Reporte");
+  //console.log("Reporte");
 
   for (let i = 1; i <= itemsToPackCount; i++) {
     itemsToPack[i].Quantity = 1;
@@ -283,8 +283,8 @@ function ExecuteIterations(container: Container) {
 }
 
 function ListCanditLayers() {
-  console.log("Consoleand list candidLayers");
-  console.log(itemsToPack);
+  //console.log("Consoleand list candidLayers");
+  //console.log(itemsToPack);
   let same: boolean;
   let exdim = 0;
   let dimdif: number;
