@@ -4,3 +4,17 @@
     height: 100%;
     width: 100%;
 }
+
+.inputForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputCajas{
+border: 1px solid red;
+}
+
+.inputContenedor{
+    border: 1px solid aqua;
+    
+}
