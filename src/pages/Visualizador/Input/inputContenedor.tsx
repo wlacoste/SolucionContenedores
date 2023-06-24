@@ -1,5 +1,5 @@
 import { FormValues } from "domain/FormValues";
-import { IContenedor } from "domain/IContenedor";
+import { IContenedor, IContenedores } from "domain/IContenedor";
 
 import { Button, IconButton, Input } from "@architecture-it/stylesystem";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -8,6 +8,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { faPlus, faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { getEmpaquetado } from "store/features/empaquetado/asyncActions";
 import { useAppDispatch } from "store/hooks";
+import { useContext } from "react";
+
+import { ContenedorContext } from "../paginaVisualizador";
 
 import styles from "./Input.module.scss";
 
@@ -24,7 +27,7 @@ const validationSchema = object().shape({
 
 export function InputContenedora() {
   const dispatch = useAppDispatch();
-
+  const [contenedor, setContenedor] = useContext(ContenedorContext);
   const {
     register,
     handleSubmit,
@@ -42,13 +45,13 @@ export function InputContenedora() {
   });
 
   const submitForm = async (formulario: any) => {
-    let x: IContenedor[] = formulario as IContenedor[];
+    let x: IContenedores = formulario as IContenedores;
 
-    x.forEach((element, index) => {
-      element.id = index + 1;
+    let contenedores: IContenedor[] = x.contenedor.map((element, index) => {
+      return { ...element, id: x.contenedor.length - index };
     });
-    // let result = dispatch(getEmpaquetado(x));
-    console.log(x);
+
+    setContenedor(() => contenedores);
   };
 
   return (

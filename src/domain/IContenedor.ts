@@ -5,3 +5,6 @@ export interface IContenedor {
   width: number;
   volume: number;
 }
+export interface IContenedores {
+  contenedor: IContenedor[];
+}
