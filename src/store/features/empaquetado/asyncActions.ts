@@ -3,7 +3,7 @@ import { resultado } from "domain/IResultado";
 import { PackingResults } from "domain/IPackingResult";
 import { IBox } from "domain/IBox";
 
-import * as useCases from "app/empaquetado";
+// import * as useCases from "app/empaquetado";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IPeticionSol } from "pages/Visualizador/Input/input2";
 

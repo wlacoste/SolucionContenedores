@@ -21,7 +21,7 @@ export const contenedorSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getContenedores.fulfilled, (state, action) => {
       fullfiledSimpleCallbackCase(state);
-      state.data = action.payload;
+      // state.data = action.payload;
     });
   },
 });

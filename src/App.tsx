@@ -9,13 +9,15 @@ interface IAppProps {
   msalInstance: IPublicClientApplication;
 }
 
-export default function App({ msalInstance }: IAppProps) {
+export default function App() {
   return (
-    <MsalProvider instance={msalInstance}>
+    <>
       <Main>
         <AppRoutes />
       </Main>
       <Alert />
-    </MsalProvider>
+    </>
+    // <MsalProvider instance={msalInstance}>
+    // </MsalProvider>
   );
 }

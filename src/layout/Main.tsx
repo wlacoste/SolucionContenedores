@@ -17,9 +17,9 @@ export default function Main({ children }: IMainProps) {
   return (
     <div className={styles.container}>
       <Header onClickButton={handleOpen}>{/* <UserAvatar /> */}</Header>
-      <SidebarWrapper open={open} onClose={handleClose} onOpen={handleOpen} />
+      {/* <SidebarWrapper open={open} onClose={handleClose} onOpen={handleOpen} /> */}
       <main className={styles.main}>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
