@@ -1,0 +1,1 @@
+if(window.__ENV){ Object.assign(window.__ENV, {}); } else { window.__ENV = {}; }
