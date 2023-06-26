@@ -16,9 +16,12 @@ export const getEmpaquetado = createAsyncThunk(
     //const resultad = await useCases.calcularEmpaquetado(paquetes);
 
     console.log("Por ejecutar contenedor");
-    console.log(paquetes);
+    // console.log(paquetes);
 
     const container: Container = { Id: 1, Length: 10, Width: 10, Height: 10, Volume: 1000 };
+
+    console.log("paquetes");
+    console.log(paquetes);
     const items = mapToItems(paquetes);
 
     console.log(items);
@@ -27,18 +30,21 @@ export const getEmpaquetado = createAsyncThunk(
       Length: contenedores[0].length,
       Width: contenedores[0].width,
       Height: contenedores[0].height,
-      Volume: contenedores[0].length * contenedores[0].width * contenedores[0].height,
+      Volume: contenedores[0].volume,
     };
 
-    const res = runSolution(container, items);
+    console.log("con");
+    console.log(con);
+
+    const res = runSolution(con, items);
 
     const resultadoMapeado = mapearRes(res, container);
 
-    console.log("este es el resultado");
-    console.log(res);
+    // console.log("este es el resultado");
+    // console.log(res);
 
     console.log("resultado algoritmo");
-    //console.log(resultad);
+    console.log(resultadoMapeado);
 
     return resultadoMapeado as resultado[];
   }
@@ -109,8 +115,8 @@ function mapearRes(res: AlgorithmPackingResult, container: Container) {
   return resultado;
 }
 
-function mapToItems(paquetes: FormValues) {
-  const a = paquetes.paquete.map((paquete, index) => {
+function mapToItems(paquetes: any) {
+  const a = paquetes.map((paquete: any) => {
     let b: Item = {
       Id: paquete.id,
       Dim1: paquete.ancho,

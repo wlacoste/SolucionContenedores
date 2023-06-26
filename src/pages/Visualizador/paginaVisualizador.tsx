@@ -30,7 +30,7 @@ export default function paginaVisualizador() {
             <InputSegundo />
           </div>
           <div className={styles.inputContenedor}>
-            <InputContenedora />
+            {/* <InputContenedora /> */}
             {/* <InputContenedor /> */}
           </div>
         </div>

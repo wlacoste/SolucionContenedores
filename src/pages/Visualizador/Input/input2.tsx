@@ -24,7 +24,36 @@ const validationSchema = object().shape({
       cantidad: number().integer().positive().min(1).required("Campo requerido"),
     })
   ),
+  contenedor: array().of(
+    object().shape({
+      largo: number().required("Campo requerido").min(0.001),
+      ancho: number().required("Campo requerido").min(0.001),
+      alto: number().required("Campo requerido").min(0.001),
+    })
+  ),
 });
+
+// const validationContenedor = object().shape({
+//   contenedor: array().of(
+//     object().shape({
+//       largo: number().required("Campo requerido").min(0.001),
+//       ancho: number().required("Campo requerido").min(0.001),
+//       alto: number().required("Campo requerido").min(0.001),
+//     })
+//   ),
+// });
+
+const mapToContainer = (c: any) => {
+  let a: IContenedor = {
+    id: c.id,
+    length: c.largo,
+    height: c.alto,
+    width: c.ancho,
+    volume: c.largo * c.alto * c.ancho,
+  };
+
+  return a;
+};
 
 export interface IPeticionSol {
   paquetes: FormValues;
@@ -43,25 +72,60 @@ export function InputSegundo() {
   } = useForm({
     defaultValues: {
       paquete: [{ largo: null, ancho: null, alto: null, cantidad: null }],
+      contenedor: [{ largo: null, ancho: null, alto: null }],
     },
     resolver: yupResolver(validationSchema),
   });
-  const { fields, prepend, remove } = useFieldArray({
+  const {
+    fields: paqueteField,
+    prepend: paquetePrepend,
+    remove: paqueteRemove,
+  } = useFieldArray({
     control,
     name: "paquete",
   });
+  const {
+    fields: contenedorField,
+    prepend: contenedorPrepend,
+    remove: contenedorRemove,
+  } = useFieldArray({
+    control,
+    name: "contenedor",
+  });
 
   const submitForm = async (formulario: any) => {
-    let x: FormValues = formulario as FormValues;
+    let x = formulario.paquete;
+    let c = formulario.contenedor;
 
-    x.paquete.forEach((element, index) => {
+    x.forEach((element: any, index: number) => {
       element.id = index + 1;
     });
-    if (contenedor.length === 0) return;
+    c.forEach((element: any, index: number) => {
+      element.id = index + 1;
+    });
+    console.log("c");
+    console.log(c);
+
+    if (c.length === 0) return;
+    const nuevosContenedores: IContenedor[] = c.map((cs: any) => {
+      return mapToContainer(cs);
+    });
+
+    console.log("nuevosCOntendores");
+
+    console.log(nuevosContenedores);
+    setContenedor(() => nuevosContenedores);
+    console.log("useStatecontenedor");
+    console.log(contenedor);
+
     let peticion: IPeticionSol = {
-      paquetes: x,
-      contenedores: contenedor,
+      paquetes: x as FormValues,
+      contenedores: nuevosContenedores as IContenedor[],
     };
+
+    console.log("peticion");
+    console.log(peticion);
+
     let result = dispatch(getEmpaquetado(peticion));
   };
 
@@ -72,95 +136,172 @@ export function InputSegundo() {
           submitForm(data);
         })}
       >
-        <div className={styles.bottonForm}>
-          <Button
-            color="primary"
-            disableRipple={true}
-            text="Calcular empaquetado"
-            type="submit"
-            variant="contained"
-            onFocusVisible={() => {}}
-          />
-          <IconButton
-            IconProps={{
-              icon: faPlus,
-            }}
-            TooltipText={""}
-            className={styles.iconButton}
-            color="primary"
-            size="small"
-            onClick={() => {
-              prepend({
-                largo: null,
-                ancho: null,
-                alto: null,
-                cantidad: null,
-              });
-            }}
-            onFocusVisible={() => {}}
-          />
+        <div className={styles.formulario}>
+          <div className={styles.bottonForm}>
+            <Button
+              color="primary"
+              disableRipple={true}
+              text="Calcular empaquetado"
+              type="submit"
+              variant="contained"
+              onFocusVisible={() => {}}
+            />
+            <IconButton
+              IconProps={{
+                icon: faPlus,
+              }}
+              TooltipText={""}
+              className={styles.iconButton}
+              color="primary"
+              size="small"
+              onClick={() => {
+                paquetePrepend({
+                  largo: null,
+                  ancho: null,
+                  alto: null,
+                  cantidad: null,
+                });
+              }}
+              onFocusVisible={() => {}}
+            />
+          </div>
+          {paqueteField.map((field, index) => {
+            return (
+              <div key={field.id}>
+                <IconosCajas debeRenderizar={index} />
+                <section className={styles.formRoot}>
+                  <div className={styles.input}>
+                    <Input
+                      label={index == 0 ? "Largo" : ""}
+                      placeholder="largo"
+                      type="text"
+                      {...register(`paquete.${index}.largo`, { required: true })}
+                      error={Boolean(errors.paquete != undefined && errors.paquete[index]?.largo)}
+                      inputProps={{ min: 0 }}
+                    />
+                  </div>
+                  <div className={styles.input}>
+                    <Input
+                      label={index == 0 ? "Ancho" : ""}
+                      placeholder="ancho"
+                      type="text"
+                      {...register(`paquete.${index}.ancho`, { required: true })}
+                      error={Boolean(errors.paquete && errors.paquete[index]?.ancho)}
+                      inputProps={{ min: 0 }}
+                    />
+                  </div>
+                  <div className={styles.input}>
+                    <Input
+                      label={index == 0 ? "Alto" : ""}
+                      placeholder="alto"
+                      type="number"
+                      {...register(`paquete.${index}.alto`, { required: true })}
+                      error={Boolean(errors.paquete && errors.paquete[index]?.alto)}
+                      inputProps={{ min: 0 }}
+                    />
+                  </div>
+                  <div className={styles.input}>
+                    <Input
+                      label={index == 0 ? "Cantidad" : ""}
+                      placeholder="cantidad"
+                      type="number"
+                      {...register(`paquete.${index}.cantidad`, { required: true })}
+                      error={Boolean(errors.paquete && errors.paquete[index]?.cantidad)}
+                      inputProps={{ min: 1 }}
+                    />
+                  </div>
+                  <IconButton
+                    IconProps={{
+                      icon: faTrash,
+                    }}
+                    TooltipText=""
+                    color="primary"
+                    size="medium"
+                    onClick={() => {
+                      paqueteRemove(index);
+                    }}
+                    onFocusVisible={() => {}}
+                  />
+                </section>
+              </div>
+            );
+          })}
         </div>
-        {fields.map((field, index) => {
-          return (
-            <div key={field.id}>
-              <IconosCajas debeRenderizar={index} />
-              <section className={styles.formRoot}>
-                <div className={styles.input}>
-                  <Input
-                    label={index == 0 ? "Largo" : ""}
-                    placeholder="largo"
-                    type="text"
-                    {...register(`paquete.${index}.largo`, { required: true })}
-                    error={Boolean(errors.paquete != undefined && errors.paquete[index]?.largo)}
-                    inputProps={{ min: 0 }}
+        <div className={styles.formulario}>
+          <div className={styles.bottonForm}>
+            <IconButton
+              IconProps={{
+                icon: faPlus,
+              }}
+              TooltipText={""}
+              className={styles.iconButton}
+              color="primary"
+              size="small"
+              onClick={() => {
+                contenedorPrepend({
+                  largo: null,
+                  ancho: null,
+                  alto: null,
+                });
+              }}
+              onFocusVisible={() => {}}
+            />
+          </div>
+          {contenedorField.map((field, index) => {
+            return (
+              <div key={field.id}>
+                <IconosCajas debeRenderizar={index} />
+                <section className={styles.formRoot}>
+                  <div className={styles.input}>
+                    <Input
+                      label={index == 0 ? "Largo" : ""}
+                      placeholder="largo"
+                      type="text"
+                      {...register(`contenedor.${index}.largo`, { required: true })}
+                      error={Boolean(
+                        errors.contenedor != undefined && errors.contenedor[index]?.largo
+                      )}
+                      inputProps={{ min: 0 }}
+                    />
+                  </div>
+                  <div className={styles.input}>
+                    <Input
+                      label={index == 0 ? "Ancho" : ""}
+                      placeholder="ancho"
+                      type="text"
+                      {...register(`contenedor.${index}.ancho`, { required: true })}
+                      error={Boolean(errors.contenedor && errors.contenedor[index]?.ancho)}
+                      inputProps={{ min: 0 }}
+                    />
+                  </div>
+                  <div className={styles.input}>
+                    <Input
+                      label={index == 0 ? "Alto" : ""}
+                      placeholder="alto"
+                      type="number"
+                      {...register(`contenedor.${index}.alto`, { required: true })}
+                      error={Boolean(errors.contenedor && errors.contenedor[index]?.alto)}
+                      inputProps={{ min: 0 }}
+                    />
+                  </div>
+
+                  <IconButton
+                    IconProps={{
+                      icon: faTrash,
+                    }}
+                    TooltipText=""
+                    color="primary"
+                    size="medium"
+                    onClick={() => {
+                      contenedorRemove(index);
+                    }}
+                    onFocusVisible={() => {}}
                   />
-                </div>
-                <div className={styles.input}>
-                  <Input
-                    label={index == 0 ? "Ancho" : ""}
-                    placeholder="ancho"
-                    type="text"
-                    {...register(`paquete.${index}.ancho`, { required: true })}
-                    error={Boolean(errors.paquete && errors.paquete[index]?.ancho)}
-                    inputProps={{ min: 0 }}
-                  />
-                </div>
-                <div className={styles.input}>
-                  <Input
-                    label={index == 0 ? "Alto" : ""}
-                    placeholder="alto"
-                    type="number"
-                    {...register(`paquete.${index}.alto`, { required: true })}
-                    error={Boolean(errors.paquete && errors.paquete[index]?.alto)}
-                    inputProps={{ min: 0 }}
-                  />
-                </div>
-                <div className={styles.input}>
-                  <Input
-                    label={index == 0 ? "Cantidad" : ""}
-                    placeholder="cantidad"
-                    type="number"
-                    {...register(`paquete.${index}.cantidad`, { required: true })}
-                    error={Boolean(errors.paquete && errors.paquete[index]?.cantidad)}
-                    inputProps={{ min: 1 }}
-                  />
-                </div>
-                <IconButton
-                  IconProps={{
-                    icon: faTrash,
-                  }}
-                  TooltipText=""
-                  color="primary"
-                  size="medium"
-                  onClick={() => {
-                    remove(index);
-                  }}
-                  onFocusVisible={() => {}}
-                />
-              </section>
-            </div>
-          );
-        })}
+                </section>
+              </div>
+            );
+          })}
+        </div>
       </form>
     </div>
   );
