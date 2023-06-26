@@ -1,6 +1,7 @@
 {
   "name": "visualizador",
   "version": "0.1.0",
+  "homepage": "https://wlacoste.github.io/SolucionContenedores",
   "private": true,
   "dependencies": {
     "@architecture-it/azure-b2c": "^1.6.2",
@@ -40,7 +41,9 @@
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint:fix && npm run stylelint:fix",
     "docker:build": "docker build -t andreani-front .",
-    "docker:start": "docker run -p 9000:3000 --env-file ./.env andreani-front"
+    "docker:start": "docker run -p 9000:3000 --env-file ./.env andreani-front",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -80,6 +83,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^5.0.0",
     "msw": "^1.2.1",
     "prettier": "^2.8.7",
     "react-scripts": "^5.0.1",
