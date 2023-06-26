@@ -33,30 +33,33 @@ export const getEmpaquetado = createAsyncThunk(
       Volume: contenedores[0].volume,
     };
 
-    console.log("con");
-    console.log(con);
+    const cons = contenedores.map((c) => {
+      let contene: Container = {
+        Id: c.id,
+        Length: c.length,
+        Width: c.width,
+        Height: c.height,
+        Volume: c.volume,
+      };
 
-    const res = runSolution(con, items);
+      return contene;
+    });
 
-    const resultadoMapeado = mapearRes(res, container);
+    const resultadoX: resultado[] = cons.map((c) => {
+      let resa: resultado = { containerID: c.Id, algorithmPackingResults: [] };
+      const res = runSolution(c, items);
+      const resultadoMapeado = mapearRes(res);
 
-    // console.log("este es el resultado");
-    // console.log(res);
+      resa.algorithmPackingResults.push(resultadoMapeado);
 
-    console.log("resultado algoritmo");
-    console.log(resultadoMapeado);
+      return resa;
+    });
 
-    return resultadoMapeado as resultado[];
+    return resultadoX;
   }
 );
 
-function mapearRes(res: AlgorithmPackingResult, container: Container) {
-  let resultado: resultado[] = [
-    {
-      containerID: container.Id,
-      algorithmPackingResults: [],
-    },
-  ];
+function mapearRes(res: AlgorithmPackingResult) {
   let algorithm: PackingResults = {
     algorithmID: 1,
     algorithmName: "EB-AFIT",
@@ -110,9 +113,10 @@ function mapearRes(res: AlgorithmPackingResult, container: Container) {
   algorithm.packedItems = packedItems;
   algorithm.unpackedItems = UnpackedItems;
 
-  resultado[0].algorithmPackingResults.push(algorithm);
+  // resultado[0].algorithmPackingResults.push(algorithm);
 
-  return resultado;
+  // return resultado;
+  return algorithm;
 }
 
 function mapToItems(paquetes: any) {
