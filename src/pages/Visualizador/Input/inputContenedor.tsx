@@ -52,6 +52,7 @@ export function InputContenedora() {
     });
 
     setContenedor(() => contenedores);
+    console.log(contenedores);
   };
 
   return (

@@ -5,13 +5,14 @@ import { IBox } from "domain/IBox";
 
 import * as useCases from "app/empaquetado";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { IPeticionSol } from "pages/Visualizador/Input/input2";
 
 import { runSolution } from "../../../components/Solucion/abafit";
 import { AlgorithmPackingResult, Container, Item } from "../../../components/Solucion/entities";
 
 export const getEmpaquetado = createAsyncThunk(
   "empaquetado/calcular",
-  async (paquetes: FormValues) => {
+  async ({ paquetes, contenedores }: IPeticionSol) => {
     //const resultad = await useCases.calcularEmpaquetado(paquetes);
 
     console.log("Por ejecutar contenedor");
@@ -21,9 +22,17 @@ export const getEmpaquetado = createAsyncThunk(
     const items = mapToItems(paquetes);
 
     console.log(items);
+    const con: Container = {
+      Id: contenedores[0].id,
+      Length: contenedores[0].length,
+      Width: contenedores[0].width,
+      Height: contenedores[0].height,
+      Volume: contenedores[0].length * contenedores[0].width * contenedores[0].height,
+    };
+
     const res = runSolution(container, items);
 
-    const resultadoMapeado = mapearRes(res);
+    const resultadoMapeado = mapearRes(res, container);
 
     console.log("este es el resultado");
     console.log(res);
@@ -35,10 +44,10 @@ export const getEmpaquetado = createAsyncThunk(
   }
 );
 
-function mapearRes(res: AlgorithmPackingResult) {
+function mapearRes(res: AlgorithmPackingResult, container: Container) {
   let resultado: resultado[] = [
     {
-      containerID: 2,
+      containerID: container.Id,
       algorithmPackingResults: [],
     },
   ];

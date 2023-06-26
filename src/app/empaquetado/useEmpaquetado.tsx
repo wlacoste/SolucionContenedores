@@ -10,10 +10,10 @@ export default function useEmpaquetado(paquetes: FormValues) {
   const empaquetado = useAppSelector(selectEmpaquetado);
 
   useEffect(() => {
-    const promise = dispatch(getEmpaquetado(paquetes));
+    // const promise = dispatch(getEmpaquetado(paquetes));
 
     return () => {
-      promise.abort();
+      // promise.abort();
     };
   }, [dispatch]);
 

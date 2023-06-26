@@ -13,12 +13,20 @@ const posicionCanonica = (caja: IContenedor) => {
 
   return res;
 };
+const posicionCanonicaContenedor = (caja: any) => {
+  // const res: Vector3 = [caja.length / 2, caja.height / 2, caja.width / 2];
+  const res = new Vector3(caja.largo / 2, caja.alto / 2, caja.ancho / 2);
+
+  return res;
+};
 
 interface IGetContenedor {
   contenedor: IContenedor;
 }
 
-export default function GetContenedor({ contenedor }: IGetContenedor) {
+export default function GetContenedor({ contenedor }: any) {
+  console.log("contenedor en getCOntenenedor");
+  console.log(contenedor as IContenedor);
   const options = useMemo(() => {
     return {
       wireFrame: true,
@@ -32,12 +40,12 @@ export default function GetContenedor({ contenedor }: IGetContenedor) {
 
   return (
     <mesh
-      position={posicionCanonica(contenedor)}
+      position={posicionCanonicaContenedor(contenedor)}
       scale={1}
       onPointerOut={(event) => hover(false)}
       onPointerOver={(event) => hover(true)}
     >
-      <boxGeometry args={[contenedor.length, contenedor.height, contenedor.width]} />
+      <boxGeometry args={[contenedor.largo, contenedor.alto, contenedor.ancho]} />
 
       <meshStandardMaterial
         color={hovered ? "red" : pB.color}

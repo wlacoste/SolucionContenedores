@@ -1,4 +1,5 @@
 import { FormValues } from "domain/FormValues";
+import { IContenedor } from "domain/IContenedor";
 
 import { Button, IconButton, Input } from "@architecture-it/stylesystem";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -7,6 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { faPlus, faTrash } from "@fortawesome/pro-solid-svg-icons";
 import { getEmpaquetado } from "store/features/empaquetado/asyncActions";
 import { useAppDispatch } from "store/hooks";
+import contenedor from "store/features/contenedor";
+import { useContext } from "react";
+
+import { ContenedorContext } from "../paginaVisualizador";
 
 import styles from "./Input.module.scss";
 
@@ -21,8 +26,14 @@ const validationSchema = object().shape({
   ),
 });
 
+export interface IPeticionSol {
+  paquetes: FormValues;
+  contenedores: IContenedor[];
+}
+
 export function InputSegundo() {
   const dispatch = useAppDispatch();
+  const [contenedor, setContenedor] = useContext(ContenedorContext);
 
   const {
     register,
@@ -46,7 +57,12 @@ export function InputSegundo() {
     x.paquete.forEach((element, index) => {
       element.id = index + 1;
     });
-    let result = dispatch(getEmpaquetado(x));
+    if (contenedor.length === 0) return;
+    let peticion: IPeticionSol = {
+      paquetes: x,
+      contenedores: contenedor,
+    };
+    let result = dispatch(getEmpaquetado(peticion));
   };
 
   return (

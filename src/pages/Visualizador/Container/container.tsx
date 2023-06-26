@@ -47,6 +47,7 @@ const creadorTexto = (texto: string) => {
 };
 
 function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
+  console.log("contenedores en geometry container", contenedor);
   const options = useMemo(() => {
     return {
       intensity: { value: 0, min: 0, max: 10, step: 0.5 },

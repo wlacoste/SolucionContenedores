@@ -4,12 +4,13 @@ import { IContenedor } from "domain/IContenedor";
 import GeometryContainer from "pages/Visualizador/Container/container";
 import { useAppSelector } from "store/hooks";
 import { selectEmpaquetado } from "store/features/empaquetado";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pagination } from "@mui/material";
 import useContenedor from "app/contenedor/useContenedor";
 import { getContenedorData } from "app/contenedor";
 
 import ResultadoLog from "../ResultadoLog/resultadoLog";
+import { ContenedorContext } from "../paginaVisualizador";
 
 import styles from "./estilos.module.scss";
 
@@ -29,7 +30,8 @@ export default function Cajas() {
   const indexUltimo = thisPage * elementosPorPagina;
   const indexPrimero = indexUltimo - elementosPorPagina;
   const actual = estadoData.slice(indexPrimero, indexUltimo);
-  const contenedores = useContenedor();
+  // const contenedores = useContenedor();
+  const [contenedores, setContenedor] = useContext(ContenedorContext);
 
   const handleChange = (e: any, p: any) => {
     setPaginaActual(p);
@@ -49,13 +51,15 @@ export default function Cajas() {
       return x.map((soluciones, i) => {
         const solucion = soluciones.map((solucion, j) => {
           const containerId = solucion.containerID;
-          const contenedor = getContenedorData(containerId, contenedores.data);
+          const contenedor = getContenedorData(containerId, contenedores);
+
+          console.log("contenedor fallando", contenedor);
 
           return solucion.algorithmPackingResults.map((packingResult, k) => {
             return (
               <div key={`{${i} + ${j} + ${k}`} className={styles.solucionContenedor}>
                 <GeometryContainer cajas={packingResult.packedItems} contenedor={contenedor} />
-                <ResultadoLog contenedor={contenedor} packingResult={packingResult} />
+                {/* <ResultadoLog contenedor={contenedor} packingResult={packingResult} /> */}
               </div>
             );
           });

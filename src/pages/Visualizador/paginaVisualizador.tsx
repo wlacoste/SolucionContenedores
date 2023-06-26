@@ -17,8 +17,6 @@ export const ContenedorContext = React.createContext<
 >([[], () => {}]);
 
 export default function paginaVisualizador() {
-  const contenedores = useContenedor();
-
   const [contenedor, setContenedor] = useState<IContenedor[]>([
     { id: 0, width: 10, length: 10, height: 10, volume: 1000 },
   ]);
