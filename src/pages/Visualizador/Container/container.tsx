@@ -11,7 +11,7 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { useMemo } from "react";
-import { presetsObj } from "@react-three/drei/helpers/environment-assets";
+// import { presetsObj } from "@react-three/drei/helpers/environment-assets";
 import { FullTheme, LevaCustomTheme } from "leva/dist/declarations/src/styles";
 
 import almendra from "./Almendra_Bold.json";
@@ -56,23 +56,23 @@ function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
       z: { value: 100, min: -100, max: 100, step: 5 },
       ambientLightOn: { value: 0, min: 0, max: 1, step: 1 },
       background: false,
-      selectedOption: {
-        value: "warehouse",
-        options: [
-          "sunset",
-          "dawn",
-          "night",
-          "warehouse",
-          "forest",
-          "apartment",
-          "studio",
-          "city",
-          "park",
-          "lobby",
-        ],
-        label: "Fondo",
-        row: false,
-      },
+      // selectedOption: {
+      //   value: "warehouse",
+      //   options: [
+      //     "sunset",
+      //     "dawn",
+      //     "night",
+      //     "warehouse",
+      //     "forest",
+      //     "apartment",
+      //     "studio",
+      //     "city",
+      //     "park",
+      //     "lobby",
+      //   ],
+      //   label: "Fondo",
+      //   row: false,
+      // },
     };
   }, []);
   const pB = useControls("Luz", options);
@@ -100,12 +100,13 @@ function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
       />
       <section className={styles.GeometryContainer}>
         <Canvas shadows camera={{ position: [20, 50, 100], fov: 50 }}>
-          {/* <Environment
+          <Environment
             background={pB.background}
             blur={0.1}
+            files="./img/thatch_chapel_1k.hdr"
             // preset={pB.selectedOption as keyof typeof presetsObj}
-            preset={"sunset"}
-          /> */}
+            // preset={"sunset"}
+          />
 
           {/* <pointLight intensity={pB.intensity} position={[pB.x, pB.z, pB.y]} /> */}
           {/* <pointLight position={[-50, 100, -50]} /> */}

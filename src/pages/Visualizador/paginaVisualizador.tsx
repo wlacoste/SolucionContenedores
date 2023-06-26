@@ -29,10 +29,6 @@ export default function paginaVisualizador() {
           <div className={styles.inputCajas}>
             <InputSegundo />
           </div>
-          <div className={styles.inputContenedor}>
-            {/* <InputContenedora /> */}
-            {/* <InputContenedor /> */}
-          </div>
         </div>
         <Cajas />
         {/* <Sandbox /> */}

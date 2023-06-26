@@ -33,16 +33,6 @@ const validationSchema = object().shape({
   ),
 });
 
-// const validationContenedor = object().shape({
-//   contenedor: array().of(
-//     object().shape({
-//       largo: number().required("Campo requerido").min(0.001),
-//       ancho: number().required("Campo requerido").min(0.001),
-//       alto: number().required("Campo requerido").min(0.001),
-//     })
-//   ),
-// });
-
 const mapToContainer = (c: any) => {
   let a: IContenedor = {
     id: c.id,
@@ -103,28 +93,18 @@ export function InputSegundo() {
     c.forEach((element: any, index: number) => {
       element.id = index + 1;
     });
-    console.log("c");
-    console.log(c);
 
     if (c.length === 0) return;
     const nuevosContenedores: IContenedor[] = c.map((cs: any) => {
       return mapToContainer(cs);
     });
 
-    console.log("nuevosCOntendores");
-
-    console.log(nuevosContenedores);
     setContenedor(() => nuevosContenedores);
-    console.log("useStatecontenedor");
-    console.log(contenedor);
 
     let peticion: IPeticionSol = {
       paquetes: x as FormValues,
       contenedores: nuevosContenedores as IContenedor[],
     };
-
-    console.log("peticion");
-    console.log(peticion);
 
     let result = dispatch(getEmpaquetado(peticion));
   };

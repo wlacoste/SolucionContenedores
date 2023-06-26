@@ -53,8 +53,6 @@ export default function Cajas() {
           const containerId = solucion.containerID;
           const contenedor = getContenedorData(containerId, contenedores);
 
-          console.log("contenedor fallando", contenedor);
-
           return solucion.algorithmPackingResults.map((packingResult, k) => {
             return (
               <div key={`{${i} + ${j} + ${k}`} className={styles.solucionContenedor}>
