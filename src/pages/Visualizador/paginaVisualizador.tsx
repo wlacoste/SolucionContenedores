@@ -6,11 +6,9 @@ import { ThemeContext } from "@emotion/react";
 import React from "react";
 
 import Cajas from "./Cajas";
-import InputContenedor from "./Input/";
 import { InputSegundo } from "./Input/input2";
 import Sandbox from "./Sandbox/sandbox";
 import styles from "./index.module.scss";
-import { InputContenedora } from "./Input/inputContenedor";
 
 export const ContenedorContext = React.createContext<
   [IContenedor[], React.Dispatch<React.SetStateAction<IContenedor[]>>]

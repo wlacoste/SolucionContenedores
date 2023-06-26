@@ -13,26 +13,7 @@ import { AlgorithmPackingResult, Container, Item } from "../../../components/Sol
 export const getEmpaquetado = createAsyncThunk(
   "empaquetado/calcular",
   async ({ paquetes, contenedores }: IPeticionSol) => {
-    //const resultad = await useCases.calcularEmpaquetado(paquetes);
-
-    console.log("Por ejecutar contenedor");
-    // console.log(paquetes);
-
-    const container: Container = { Id: 1, Length: 10, Width: 10, Height: 10, Volume: 1000 };
-
-    console.log("paquetes");
-    console.log(paquetes);
     const items = mapToItems(paquetes);
-
-    console.log(items);
-    const con: Container = {
-      Id: contenedores[0].id,
-      Length: contenedores[0].length,
-      Width: contenedores[0].width,
-      Height: contenedores[0].height,
-      Volume: contenedores[0].volume,
-    };
-
     const cons = contenedores.map((c) => {
       let contene: Container = {
         Id: c.id,
