@@ -19,7 +19,7 @@ export default function Main({ children }: IMainProps) {
       <Header onClickButton={handleOpen}>{/* <UserAvatar /> */}</Header>
       {/* <SidebarWrapper open={open} onClose={handleClose} onOpen={handleOpen} /> */}
       <main className={styles.main}>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

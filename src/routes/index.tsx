@@ -12,9 +12,14 @@ export default function AppRoutes() {
     <Suspense fallback={<PrincipalSkeleton />}>
       <Routes>
         <Route element={<InteractionRoute />}>
-          <Route index element={<PaginaVisualizador />} />
+          {/* <Route index element={<PaginaVisualizador />} /> */}
+          <Route index element={<Hola />} />
         </Route>
       </Routes>
     </Suspense>
   );
+}
+
+export function Hola() {
+  return <h1>Hola mundosqui</h1>;
 }
