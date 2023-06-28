@@ -3,6 +3,7 @@ import { UserAvatar, SidebarWrapper } from "@architecture-it/azure-b2c";
 import { useLocation, useNavigate } from "react-router-dom";
 import { faBoxTaped, faHome } from "@fortawesome/pro-solid-svg-icons";
 
+import cubes from "./../assets/img/cubes-svgrepo-com.svg";
 import styles from "./Main.module.scss";
 
 interface IMainProps {
@@ -16,7 +17,9 @@ export default function Main({ children }: IMainProps) {
 
   return (
     <div className={styles.container}>
-      <Header onClickButton={handleOpen}>{/* <UserAvatar /> */}</Header>
+      <Header logo={{ alt: "cubes", src: cubes }} onClickButton={handleOpen}>
+        {/* <UserAvatar /> */}
+      </Header>
       {/* <SidebarWrapper open={open} onClose={handleClose} onOpen={handleOpen} /> */}
       <main className={styles.main}>{children}</main>
       <Footer />
