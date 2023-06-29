@@ -148,7 +148,7 @@ export function InputSegundo() {
           {paqueteField.map((field, index) => {
             return (
               <div key={field.id}>
-                <IconosCajas debeRenderizar={index} />
+                <IconosCajas debeRenderizar={index} isCaja={true} />
                 <section className={styles.formRoot}>
                   <div className={styles.input}>
                     <Input
@@ -230,7 +230,7 @@ export function InputSegundo() {
           {contenedorField.map((field, index) => {
             return (
               <div key={field.id}>
-                <IconosCajas debeRenderizar={index} />
+                <IconosCajas debeRenderizar={index} isCaja={false} />
                 <section className={styles.formRoot}>
                   <div className={styles.input}>
                     <Input
@@ -288,32 +288,42 @@ export function InputSegundo() {
 }
 interface debeRenderizar {
   debeRenderizar: number;
+  isCaja: boolean;
 }
-function IconosCajas({ debeRenderizar }: debeRenderizar) {
+function IconosCajas({ debeRenderizar, isCaja }: debeRenderizar) {
   if (debeRenderizar !== 0) {
     return <></>;
   }
+  if (isCaja) {
+    return (
+      <div>
+        <h3>Cajas</h3>
 
-  return (
-    <div className={styles.formRoot}>
-      <div className={styles.iconoDi}>
-        <img
-          alt=""
-          src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/profundidad.svg"
-        />
+        <div className={styles.formRoot}>
+          <div className={styles.iconoDi}>
+            <img
+              alt=""
+              src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/profundidad.svg"
+            />
+          </div>
+          <div className={styles.iconoDi}>
+            <img
+              alt=""
+              src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/ancho.svg"
+            />
+          </div>
+          <div className={styles.iconoDi}>
+            <img
+              alt=""
+              src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/altura.svg"
+            />
+          </div>
+        </div>
       </div>
-      <div className={styles.iconoDi}>
-        <img
-          alt=""
-          src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/ancho.svg"
-        />
-      </div>
-      <div className={styles.iconoDi}>
-        <img
-          alt=""
-          src="https://componentesui.blob.core.windows.net/recursos/iconografia-gla/descripcion-de-envio/relleno/svg/altura.svg"
-        />
-      </div>
-    </div>
-  );
+    );
+  } else {
+    console.log("indice", debeRenderizar);
+
+    return <h3>Contenedores</h3>;
+  }
 }

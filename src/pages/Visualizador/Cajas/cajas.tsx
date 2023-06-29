@@ -57,7 +57,7 @@ export default function Cajas() {
             return (
               <div key={`{${i} + ${j} + ${k}`} className={styles.solucionContenedor}>
                 <GeometryContainer cajas={packingResult.packedItems} contenedor={contenedor} />
-                {/* <ResultadoLog contenedor={contenedor} packingResult={packingResult} /> */}
+                <ResultadoLog contenedor={contenedor} packingResult={packingResult} />
               </div>
             );
           });

@@ -94,10 +94,6 @@ function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
 
   return (
     <div className={styles.divContainer}>
-      <Leva
-        collapsed // default = false, when true the GUI is collpased
-        theme={tema}
-      />
       <section className={styles.GeometryContainer}>
         <Canvas shadows camera={{ position: [20, 50, 100], fov: 50 }}>
           <Environment
@@ -132,6 +128,13 @@ function GeometryContainer({ cajas, contenedor }: IGeometryContainer) {
           <primitive object={new THREE.AxesHelper(500)} />
         </Canvas>
       </section>
+      <div className={styles.leva}>
+        <Leva
+          collapsed // default = false, when true the GUI is collpased
+          fill
+          theme={tema}
+        />
+      </div>
     </div>
   );
 }
