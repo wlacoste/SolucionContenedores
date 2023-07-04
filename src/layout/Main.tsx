@@ -2,6 +2,7 @@ import { Footer, Header, useToggle } from "@architecture-it/stylesystem";
 import { UserAvatar, SidebarWrapper } from "@architecture-it/azure-b2c";
 import { useLocation, useNavigate } from "react-router-dom";
 import { faBoxTaped, faHome } from "@fortawesome/pro-solid-svg-icons";
+import About from "components/About";
 
 import x from "./../assets/img/cubes-svgrepo-com.svg";
 import cubes from "./../assets/img/cubes-svgrepo-com.svg";
@@ -23,6 +24,7 @@ export default function Main({ children }: IMainProps) {
         logo={{ alt: "cubes", src: cubes }}
         onClickButton={handleOpen}
       >
+        <About />
         {/* <UserAvatar /> */}
       </Header>
       {/* <SidebarWrapper open={open} onClose={handleClose} onOpen={handleOpen} /> */}

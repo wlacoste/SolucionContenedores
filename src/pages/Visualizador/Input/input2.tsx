@@ -154,7 +154,7 @@ export function InputSegundo() {
                     <Input
                       label={index == 0 ? "Largo" : ""}
                       placeholder="largo"
-                      type="text"
+                      type="number"
                       {...register(`paquete.${index}.largo`, { required: true })}
                       error={Boolean(errors.paquete != undefined && errors.paquete[index]?.largo)}
                       inputProps={{ min: 0 }}
@@ -164,7 +164,7 @@ export function InputSegundo() {
                     <Input
                       label={index == 0 ? "Ancho" : ""}
                       placeholder="ancho"
-                      type="text"
+                      type="number"
                       {...register(`paquete.${index}.ancho`, { required: true })}
                       error={Boolean(errors.paquete && errors.paquete[index]?.ancho)}
                       inputProps={{ min: 0 }}
@@ -236,7 +236,7 @@ export function InputSegundo() {
                     <Input
                       label={index == 0 ? "Largo" : ""}
                       placeholder="largo"
-                      type="text"
+                      type="number"
                       {...register(`contenedor.${index}.largo`, { required: true })}
                       error={Boolean(
                         errors.contenedor != undefined && errors.contenedor[index]?.largo
@@ -248,7 +248,7 @@ export function InputSegundo() {
                     <Input
                       label={index == 0 ? "Ancho" : ""}
                       placeholder="ancho"
-                      type="text"
+                      type="number"
                       {...register(`contenedor.${index}.ancho`, { required: true })}
                       error={Boolean(errors.contenedor && errors.contenedor[index]?.ancho)}
                       inputProps={{ min: 0 }}
